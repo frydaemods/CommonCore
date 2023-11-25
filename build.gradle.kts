@@ -37,4 +37,8 @@ tasks {
     jar {
         from("LICENSE")
     }
+
+    runServer {
+        actions.clear()
+    }
 }
