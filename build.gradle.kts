@@ -34,6 +34,10 @@ tasks {
         }
     }
 
+    test {
+        useJUnitPlatform()
+    }
+
     jar {
         from("LICENSE")
     }
