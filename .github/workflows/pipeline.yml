@@ -8,9 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      FRYDAE_MAVEN_PUBLISH_USER: ${{ secrets.MINECRAFT_MODS_PUBLISH_USER }}
-      FRYDAE_MAVEN_PUBLISH_PASS: ${{ secrets.MINECRAFT_MODS_PUBLISH_PASS }}
 
     steps:
       - uses: actions/checkout@v4
@@ -28,5 +25,8 @@ jobs:
         run: ./gradlew test
 
       - name: Run publish task on success
+        env:
+          FRYDAE_MAVEN_PUBLISH_USER: ${{ secrets.MINECRAFT_MODS_PUBLISH_USER }}
+          FRYDAE_MAVEN_PUBLISH_PASS: ${{ secrets.MINECRAFT_MODS_PUBLISH_PASS }}
         if: success()
         run: ./gradlew publish
