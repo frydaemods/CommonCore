@@ -1,7 +1,6 @@
 package dev.frydae.commoncore.utils.java;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +27,13 @@ public class DistinctCaselessList extends ArrayList<String> {
     @CanIgnoreReturnValue
     public boolean addAll(String... strings) {
         return addAll(List.of(strings));
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends String> strings) {
+        strings.forEach(this::add);
+
+        return true;
     }
 
     @Override

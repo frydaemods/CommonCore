@@ -1,0 +1,30 @@
+name: Java Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      FRYDAE_MAVEN_PUBLISH_USER: ${{ secrets.MINECRAFT_MODS_PUBLISH_USER }}
+      FRYDAE_MAVEN_PUBLISH_PASS: ${{ secrets.MINECRAFT_MODS_PUBLISH_PASS }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Run publish task on success
+        if: success()
+        run: ./gradlew publish
