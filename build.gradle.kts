@@ -42,7 +42,9 @@ tasks {
         from("LICENSE")
     }
 
-    runServer {
-        actions.clear()
+    if (projectDir.parentFile.name.equals("Minecraft Mods")) {
+        runServer {
+            actions.clear()
+        }
     }
 }
