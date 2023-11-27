@@ -29,7 +29,7 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(getProperties())
             expand(mutableMapOf(
-                    "version" to property("fabric_version")
+                    "version" to project.version.toString().removeSuffix("-SNAPSHOT")
             ))
         }
     }
