@@ -29,7 +29,7 @@ tasks {
         filesMatching("fabric.mod.json") {
             expand(getProperties())
             expand(mutableMapOf(
-                    "version" to project.version
+                    "version" to property("fabric_version")
             ))
         }
     }
