@@ -20,6 +20,8 @@ dependencies {
     modApi("dev.frydae:fcs-fabric:${version}:all@jar") {
         exclude(group = "dev.frydae", module = "accessmanager")
     }
+
+    modApi("dev.frydae:taskchain-fabric:${version}:all@jar")
 }
 
 tasks {

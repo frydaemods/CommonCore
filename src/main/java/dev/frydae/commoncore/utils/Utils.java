@@ -10,6 +10,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 
 public final class Utils {
+    /**
+     * Converts & characters in a string into section signs
+     * This conversion acts as a bypass to the new {@link net.minecraft.util.Formatting} system for message.
+     * <p></p>
+     * While using this method, an ampersand can be included in the final product by escaping it with a backslash.
+     * <p></p>
+     * Ex: "&aThis is \&a message" -> "§aThis is &a message"
+     *
+     * @param message
+     * @return
+     */
     public static String color(String message) {
         Matcher matcher = Patterns.CHAT_COLOR_CODES.matcher(message);
 
