@@ -44,7 +44,7 @@ public class CommonCore implements DedicatedServerModInitializer {
         scheduler.scheduleAtFixedRate(UserManager::saveUsers, 1, 1, TimeUnit.MINUTES);
 
         ServerLifecycleEvents.SERVER_STOPPING.register((server) -> {
-            scheduler.shutdown();
+            scheduler.shutdownNow();
             UserManager.saveUsers();
         });
     }
