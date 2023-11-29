@@ -52,10 +52,12 @@ public final class Utils {
     }
 
     public static void broadcastMessage(String message, Object... replacements) {
-        CommonCore.getSingleton().getServer().getPlayerManager().getPlayerList().forEach(player -> {
-            String newMessage = formatMessage(message, replacements);
+        String newMessage = formatMessage(message, replacements);
 
-            player.sendMessage(Text.literal(newMessage));
-        });
+        broadcastMessage(Text.literal(newMessage));
+    }
+
+    public static void broadcastMessage(Text text) {
+        CommonCore.getSingleton().getServer().getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(text));
     }
 }
