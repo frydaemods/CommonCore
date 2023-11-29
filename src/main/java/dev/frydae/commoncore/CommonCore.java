@@ -4,15 +4,13 @@ import co.aikar.taskchain.FabricTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import dev.frydae.commoncore.commands.Commands;
-import dev.frydae.commoncore.events.ServerPlayerConnectionEvents;
+import dev.frydae.commoncore.systems.LanguageLoader;
 import dev.frydae.commoncore.user.UserManager;
 import lombok.Getter;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -40,6 +38,8 @@ public class CommonCore implements DedicatedServerModInitializer {
             getSingleton().setServer(server);
             getSingleton().taskChainFactory = FabricTaskChainFactory.create(server);
 
+            LanguageLoader.loadFile("en_us.json");
+
             UserManager.loadUsers();
         });
 
@@ -49,14 +49,6 @@ public class CommonCore implements DedicatedServerModInitializer {
         ServerLifecycleEvents.SERVER_STOPPING.register((server) -> {
             scheduler.shutdownNow();
             UserManager.saveUsers();
-        });
-
-        ServerPlayerConnectionEvents.DISCONNECT_MESSAGE.register((user) -> {
-            return Text.literal(user.getName() + " left the game").formatted(Formatting.YELLOW);
-        });
-
-        ServerPlayerConnectionEvents.JOIN_MESSAGE.register((user) -> {
-            return Text.literal(user.getName() + " joined the game").formatted(Formatting.YELLOW);
         });
     }
 
