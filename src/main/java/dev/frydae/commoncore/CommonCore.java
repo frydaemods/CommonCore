@@ -35,7 +35,7 @@ public class CommonCore implements DedicatedServerModInitializer {
     }
 
     private void registerLifecycleEvents() {
-        ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
+        ServerLifecycleEvents.SERVER_STARTING.register((server) -> {
             getSingleton().setServer(server);
 
             ServerEvents.POST_SINGLETON.getInvoker().onPostSingletonCallback(server);
