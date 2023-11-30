@@ -4,6 +4,7 @@ import co.aikar.taskchain.FabricTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import dev.frydae.commoncore.commands.Commands;
+import dev.frydae.commoncore.events.ServerEvents;
 import dev.frydae.commoncore.systems.LanguageLoader;
 import dev.frydae.commoncore.user.UserManager;
 import lombok.Getter;
@@ -36,6 +37,11 @@ public class CommonCore implements DedicatedServerModInitializer {
     private void registerLifecycleEvents() {
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
             getSingleton().setServer(server);
+
+            ServerEvents.POST_SINGLETON.getInvoker().onPostSingletonCallback(server);
+        });
+
+        ServerEvents.POST_SINGLETON.register(server -> {
             getSingleton().taskChainFactory = FabricTaskChainFactory.create(server);
 
             LanguageLoader.loadFile("en_us.json");

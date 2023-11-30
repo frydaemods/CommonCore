@@ -5,7 +5,7 @@ import dev.frydae.commoncore.CommonCore;
 import dev.frydae.commoncore.events.ServerPlayerConnectionEvents;
 import dev.frydae.commoncore.user.RegisteredUser;
 import dev.frydae.commoncore.user.UserManager;
-import dev.frydae.commoncore.utils.Utils;
+import dev.frydae.commoncore.utils.Util;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
@@ -40,7 +40,7 @@ public class PlayerManagerMixin {
         }
 
         if (text != null) {
-            Utils.broadcastMessage(text);
+            Util.broadcastMessage(text);
         }
     }
 

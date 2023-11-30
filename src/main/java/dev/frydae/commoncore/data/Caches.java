@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
 import dev.frydae.commoncore.user.RegisteredUser;
 import dev.frydae.commoncore.user.UserManager;
+import net.minecraft.server.world.ServerWorld;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -33,5 +34,11 @@ public final class Caches {
                     .maximumSize(256)
                     .expireAfterAccess(30, TimeUnit.MINUTES)
                     .removalListener(USER_REMOVAL_LISTENER)
+                    .build();
+
+    public static Cache<String, ServerWorld> worldNameCache =
+            CacheBuilder.newBuilder()
+                    .maximumSize(256)
+                    .expireAfterAccess(30, TimeUnit.MINUTES)
                     .build();
 }

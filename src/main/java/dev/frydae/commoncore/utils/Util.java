@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.regex.Matcher;
 
-public final class Utils {
+public final class Util {
     /**
      * Converts {@literal &} characters in a string into section signs
      * This conversion acts as a bypass to the new {@link net.minecraft.util.Formatting} system for message.

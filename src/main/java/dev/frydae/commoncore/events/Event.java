@@ -12,7 +12,7 @@ public class Event<T> {
     @Getter private T invoker;
 
     @SuppressWarnings("unchecked")
-    Event(Class<T> handlerClass, Function<T[], T> multiplexer) {
+    public Event(Class<T> handlerClass, Function<T[], T> multiplexer) {
         this.handlers = (T[]) Array.newInstance(handlerClass, 0);
         this.multiplexer = multiplexer;
         update();
