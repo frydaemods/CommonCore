@@ -15,7 +15,7 @@ public class Commands {
         registerContexts();
         registerCompletions();
 
-        FabricCommandManager.upsertCommands();
+        FabricCommandManager.registerCommands();
     }
 
     private static void registerContexts() {

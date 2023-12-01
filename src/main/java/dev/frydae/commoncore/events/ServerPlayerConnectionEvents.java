@@ -2,8 +2,8 @@ package dev.frydae.commoncore.events;
 
 import dev.frydae.commoncore.systems.LanguageLoader;
 import dev.frydae.commoncore.user.RegisteredUser;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
-import net.minecraft.network.packet.s2c.play.PlayerSpawnS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -15,7 +15,6 @@ public final class ServerPlayerConnectionEvents {
 
     public static Event<DisconnectMessageCallback> DISCONNECT_MESSAGE = new Event<>(DisconnectMessageCallback.class, (listeners) -> (user) -> {
         Text response = Text.literal(LanguageLoader.getString("multiplayer.player.left", user.getName())).formatted(Formatting.YELLOW);
-
         boolean responseSet = false;
 
         for (DisconnectMessageCallback listener : listeners) {
@@ -83,7 +82,7 @@ public final class ServerPlayerConnectionEvents {
 
     @FunctionalInterface
     public interface SpawnPacketFilterCallback {
-        boolean onSpawnPacketSend(PlayerSpawnS2CPacket packet, ServerPlayerEntity target);
+        boolean onSpawnPacketSend(EntitySpawnS2CPacket packet, ServerPlayerEntity target);
     }
 
     @FunctionalInterface

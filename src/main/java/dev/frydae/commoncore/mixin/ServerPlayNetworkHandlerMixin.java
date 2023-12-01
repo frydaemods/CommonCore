@@ -32,7 +32,7 @@ public class ServerPlayNetworkHandlerMixin {
     @Shadow private double updatedZ;
 
     @Redirect(
-            method = "onDisconnected",
+            method = "cleanUp",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"))
     public void broadcast(PlayerManager instance, Text message, boolean overlay) {
         RegisteredUser user = UserManager.getUser(player);

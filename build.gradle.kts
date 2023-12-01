@@ -2,7 +2,7 @@ plugins {
     java
     id("io.freefair.lombok") version "8.3"
     id("java-library")
-    id ("fabric-loom") version "1.4-SNAPSHOT"
+    id("fabric-loom") version "1.4-SNAPSHOT"
 }
 
 group = property("maven_group")!!
@@ -17,11 +17,8 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${property("fabric_loader_version")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
-    modApi("dev.frydae:fcs-fabric:${version}:all@jar") {
-        exclude(group = "dev.frydae", module = "accessmanager")
-    }
-
-    modApi("dev.frydae:taskchain-fabric:${version}:all@jar")
+    modImplementation("dev.frydae:fcs-fabric:${version}")?.let { include(it) }
+    api(group = "co.aikar", name = "taskchain-core", version = "3.7.2")?.let { include(it) }
 }
 
 tasks {

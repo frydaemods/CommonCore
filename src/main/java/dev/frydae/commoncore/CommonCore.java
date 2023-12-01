@@ -1,12 +1,12 @@
 package dev.frydae.commoncore;
 
-import co.aikar.taskchain.FabricTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import dev.frydae.commoncore.commands.Commands;
 import dev.frydae.commoncore.events.ServerEvents;
 import dev.frydae.commoncore.systems.LanguageLoader;
 import dev.frydae.commoncore.user.UserManager;
+import dev.frydae.commoncore.utils.taskchain.FabricTaskChainFactory;
 import lombok.Getter;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
