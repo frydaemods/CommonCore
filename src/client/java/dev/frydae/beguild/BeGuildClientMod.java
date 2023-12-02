@@ -1,5 +1,6 @@
 package dev.frydae.beguild;
 
+import dev.frydae.beguild.events.ServerPlayerConnectionEvents;
 import net.fabricmc.api.ClientModInitializer;
 
 public class BeGuildClientMod implements ClientModInitializer {

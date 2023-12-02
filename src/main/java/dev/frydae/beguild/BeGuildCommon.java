@@ -13,8 +13,10 @@ import dev.frydae.commands.FabricCommandManager;
 import dev.frydae.commands.IllegalCommandException;
 import lombok.Getter;
 import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.List;
