@@ -17,6 +17,9 @@
   "entrypoints": {
     "server": [
       "dev.frydae.commoncore.CommonCore"
+    ],
+    "client": [
+      "dev.frydae.commoncore.ClientMod"
     ]
   },
   "mixins": [

@@ -21,6 +21,17 @@ dependencies {
     api(group = "co.aikar", name = "taskchain-core", version = "3.7.2")?.let { include(it) }
 }
 
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        create("common-core") {
+            sourceSet(sourceSets.getByName("main"))
+            sourceSet(sourceSets.getByName("client"))
+        }
+    }
+}
+
 tasks {
     processResources {
         inputs.property("version", project.version)
