@@ -1,10 +1,10 @@
-package dev.frydae.commoncore.data;
+package dev.frydae.beguild.data;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
-import dev.frydae.commoncore.user.RegisteredUser;
-import dev.frydae.commoncore.user.UserManager;
+import dev.frydae.beguild.user.RegisteredUser;
+import dev.frydae.beguild.user.UserManager;
 import net.minecraft.server.world.ServerWorld;
 
 import java.util.UUID;

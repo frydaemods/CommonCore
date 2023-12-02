@@ -1,11 +1,11 @@
-package dev.frydae.commoncore.mixin;
+package dev.frydae.beguild.mixin;
 
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import dev.frydae.commoncore.CommonCore;
-import dev.frydae.commoncore.events.ServerPlayerConnectionEvents;
-import dev.frydae.commoncore.user.RegisteredUser;
-import dev.frydae.commoncore.user.UserManager;
-import dev.frydae.commoncore.utils.Util;
+import dev.frydae.beguild.BeGuildCommon;
+import dev.frydae.beguild.events.ServerPlayerConnectionEvents;
+import dev.frydae.beguild.user.RegisteredUser;
+import dev.frydae.beguild.user.UserManager;
+import dev.frydae.beguild.utils.Util;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
@@ -52,7 +52,7 @@ public class PlayerManagerMixin {
 
         if (packet instanceof PlayerListS2CPacket newPacket) {
             UUID uuid = newPacket.getEntries().get(0).profileId();
-            ServerPlayerEntity playerToSend = CommonCore.getSingleton().getServer().getPlayerManager().getPlayer(uuid);
+            ServerPlayerEntity playerToSend = BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayer(uuid);
 
             List<ServerPlayerEntity> playersToSendTo = ServerPlayerConnectionEvents.SEND_PLAYER_LIST_FILTER.getInvoker().onSendPlayerListFilter(newPacket, playerToSend, players);
 

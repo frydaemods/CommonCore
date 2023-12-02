@@ -1,4 +1,4 @@
-package dev.frydae.commoncore;
+package dev.frydae.beguild;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

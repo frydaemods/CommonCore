@@ -1,4 +1,4 @@
-package dev.frydae.commoncore.user;
+package dev.frydae.beguild.user;
 
 import com.google.gson.annotations.Expose;
 import lombok.Getter;

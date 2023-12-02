@@ -1,4 +1,4 @@
-package dev.frydae.commoncore.utils.java;
+package dev.frydae.beguild.utils.java;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 

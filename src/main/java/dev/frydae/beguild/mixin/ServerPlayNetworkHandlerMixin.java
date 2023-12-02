@@ -1,11 +1,11 @@
-package dev.frydae.commoncore.mixin;
+package dev.frydae.beguild.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.frydae.commoncore.events.PlayerEvents;
-import dev.frydae.commoncore.events.ServerPlayerConnectionEvents;
-import dev.frydae.commoncore.user.RegisteredUser;
-import dev.frydae.commoncore.user.UserManager;
-import dev.frydae.commoncore.utils.Util;
+import dev.frydae.beguild.events.PlayerEvents;
+import dev.frydae.beguild.events.ServerPlayerConnectionEvents;
+import dev.frydae.beguild.user.RegisteredUser;
+import dev.frydae.beguild.user.UserManager;
+import dev.frydae.beguild.utils.Util;
 import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;

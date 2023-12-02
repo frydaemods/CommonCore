@@ -1,9 +1,9 @@
-package dev.frydae.commoncore.systems;
+package dev.frydae.beguild.systems;
 
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import dev.frydae.commoncore.ConfigManager;
+import dev.frydae.beguild.ConfigManager;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.Nullable;
 

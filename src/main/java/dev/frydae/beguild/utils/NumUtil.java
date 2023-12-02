@@ -1,4 +1,4 @@
-package dev.frydae.commoncore.utils;
+package dev.frydae.beguild.utils;
 
 import org.apache.commons.lang3.math.NumberUtils;
 

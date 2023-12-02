@@ -1,4 +1,4 @@
-package dev.frydae.commoncore.events;
+package dev.frydae.beguild.events;
 
 import net.minecraft.server.MinecraftServer;
 

@@ -1,11 +1,11 @@
-package dev.frydae.commoncore.user;
+package dev.frydae.beguild.user;
 
 import com.google.common.collect.Lists;
 import com.google.common.reflect.TypeToken;
-import dev.frydae.commoncore.CommonCore;
-import dev.frydae.commoncore.ConfigManager;
-import dev.frydae.commoncore.data.Caches;
-import dev.frydae.commoncore.utils.TimeUtil;
+import dev.frydae.beguild.BeGuildCommon;
+import dev.frydae.beguild.ConfigManager;
+import dev.frydae.beguild.data.Caches;
+import dev.frydae.beguild.utils.TimeUtil;
 import lombok.SneakyThrows;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +48,7 @@ public final class UserManager {
             };
 
             if (field != null && field.equals(o)) {
-                ServerPlayerEntity player = CommonCore.getSingleton().getServer().getPlayerManager().getPlayer(registeredUser.getUuid());
+                ServerPlayerEntity player = BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayer(registeredUser.getUuid());
 
                 // Might be null, which is okay
                 registeredUser.setPlayer(player);

@@ -1,7 +1,7 @@
-package dev.frydae.commoncore.mixin;
+package dev.frydae.beguild.mixin;
 
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
-import dev.frydae.commoncore.events.ServerPlayerConnectionEvents;
+import dev.frydae.beguild.events.ServerPlayerConnectionEvents;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;

@@ -1,4 +1,4 @@
-package dev.frydae.commoncore.utils.taskchain;
+package dev.frydae.beguild.utils.taskchain;
 
 import co.aikar.taskchain.AsyncQueue;
 import co.aikar.taskchain.GameInterface;

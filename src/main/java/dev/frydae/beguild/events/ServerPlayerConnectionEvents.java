@@ -1,7 +1,7 @@
-package dev.frydae.commoncore.events;
+package dev.frydae.beguild.events;
 
-import dev.frydae.commoncore.systems.LanguageLoader;
-import dev.frydae.commoncore.user.RegisteredUser;
+import dev.frydae.beguild.systems.LanguageLoader;
+import dev.frydae.beguild.user.RegisteredUser;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;

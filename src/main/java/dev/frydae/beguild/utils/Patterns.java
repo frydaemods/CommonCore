@@ -1,4 +1,4 @@
-package dev.frydae.commoncore.utils;
+package dev.frydae.beguild.utils;
 
 import java.util.regex.Pattern;
 

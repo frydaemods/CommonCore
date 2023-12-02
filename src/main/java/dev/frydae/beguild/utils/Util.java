@@ -1,7 +1,7 @@
-package dev.frydae.commoncore.utils;
+package dev.frydae.beguild.utils;
 
 import com.google.errorprone.annotations.FormatString;
-import dev.frydae.commoncore.CommonCore;
+import dev.frydae.beguild.BeGuildCommon;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
@@ -61,6 +61,6 @@ public final class Util {
     }
 
     public static void broadcastMessage(Text text) {
-        CommonCore.getSingleton().getServer().getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(text));
+        BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(text));
     }
 }
