@@ -25,7 +25,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        create("common-core") {
+        create("beguild-common") {
             sourceSet(sourceSets.getByName("main"))
             sourceSet(sourceSets.getByName("client"))
         }
@@ -50,11 +50,5 @@ tasks {
 
     jar {
         from("LICENSE")
-    }
-
-    if (projectDir.parentFile.name.equals("Minecraft Mods")) {
-        runServer {
-            actions.clear()
-        }
     }
 }

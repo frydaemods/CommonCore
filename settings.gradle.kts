@@ -29,4 +29,4 @@ gradleEnterprise {
     }
 }
 
-rootProject.name = "CommonCore"
+rootProject.name = "BeGuild-Common"
