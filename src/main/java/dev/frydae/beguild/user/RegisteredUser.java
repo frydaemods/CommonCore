@@ -12,6 +12,7 @@ import java.util.UUID;
 @Getter @Setter
 @RequiredArgsConstructor
 public class RegisteredUser {
+    @Expose private Long userId;
     @Expose private String name;
     @Expose private final UUID uuid;
     @Expose private Long lastLogin;

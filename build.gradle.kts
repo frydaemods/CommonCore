@@ -19,11 +19,15 @@ dependencies {
 
     modImplementation("dev.frydae:fcs-fabric:${version}")?.let { include(it) }
     api(group = "co.aikar", name = "taskchain-core", version = "3.7.2")?.let { include(it) }
+    api(group = "co.aikar", name = "idb-core", version = "1.0.0-SNAPSHOT")?.let { include(it) }
+
 
     modImplementation("com.sk89q.worldedit:worldedit-fabric-mc1.20.2:7.2.17")
-    modImplementation("xyz.nucleoid:fantasy:0.4.11+1.20-rc1")
+    modImplementation("xyz.nucleoid:fantasy:0.4.11+1.20-rc1")?.let { include(it) }
 
-
+    include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
+    include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
+    include(api(group = "com.mysql", name = "mysql-connector-j", version = "8.2.0"))
 }
 
 loom {

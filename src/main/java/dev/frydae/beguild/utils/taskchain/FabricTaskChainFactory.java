@@ -7,9 +7,6 @@ import co.aikar.taskchain.TaskChainFactory;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.server.MinecraftServer;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FabricTaskChainFactory extends TaskChainFactory {
@@ -43,9 +40,7 @@ public class FabricTaskChainFactory extends TaskChainFactory {
         @Override
         public void postToMain(Runnable run) {
             if (server.isRunning()) {
-                ExecutorService service = Executors.newSingleThreadExecutor();
-
-                service.submit(run);
+                run.run();
             } else {
                 run.run();
             }
@@ -54,9 +49,15 @@ public class FabricTaskChainFactory extends TaskChainFactory {
         @Override
         public void scheduleTask(int gameUnits, Runnable run) {
             if (server.isRunning()) {
-                ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+                new Thread(() -> {
+                    try {
+                        Thread.currentThread().wait(gameUnits * 50L);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
-                service.schedule(run, gameUnits * 50L, TimeUnit.MILLISECONDS);
+                    run.run();
+                }).start();
             } else {
                 run.run();
             }

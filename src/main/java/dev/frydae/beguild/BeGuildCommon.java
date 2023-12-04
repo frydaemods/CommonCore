@@ -13,10 +13,8 @@ import dev.frydae.commands.FabricCommandManager;
 import dev.frydae.commands.IllegalCommandException;
 import lombok.Getter;
 import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.MinecraftServer;
 
 import java.util.List;
@@ -24,6 +22,7 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class BeGuildCommon implements DedicatedServerModInitializer {
     private static volatile BeGuildCommon singleton;
@@ -72,6 +71,10 @@ public class BeGuildCommon implements DedicatedServerModInitializer {
 
             return users;
         });
+    }
+
+    public static Logger getLogger() {
+        return Logger.getLogger("BeGuild");
     }
 
     @Override

@@ -36,6 +36,13 @@ public final class Caches {
                     .removalListener(USER_REMOVAL_LISTENER)
                     .build();
 
+    public static Cache<Long, RegisteredUser> userIdCache =
+            CacheBuilder.newBuilder()
+                    .maximumSize(256)
+                    .expireAfterAccess(30, TimeUnit.MINUTES)
+                    .removalListener(USER_REMOVAL_LISTENER)
+                    .build();
+
     public static Cache<String, ServerWorld> worldNameCache =
             CacheBuilder.newBuilder()
                     .maximumSize(256)
