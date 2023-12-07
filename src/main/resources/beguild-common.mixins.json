@@ -4,9 +4,12 @@
   "package": "dev.frydae.beguild.mixin",
   "compatibilityLevel": "JAVA_17",
   "server": [
-    "ServerPlayNetworkHandlerMixin",
+    "ChunkGeneratorMixin",
     "EntityTrackerEntryMixin",
-    "PlayerManagerMixin"
+    "PlayerManagerMixin",
+    "ServerPlayNetworkHandlerMixin",
+    "StructureStartMixin",
+    "accessors.JigsawStructureAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

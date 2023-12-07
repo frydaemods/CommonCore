@@ -7,6 +7,7 @@ public final class Patterns {
     public static final Pattern PIPE = Pattern.compile("\\|");
     public static final Pattern NEWLINE = Pattern.compile("\n");
     public static final Pattern COMMA = Pattern.compile(",");
+    public static final Pattern UNDERSCORE = Pattern.compile("_");
     public static final Pattern COMMASPACE = Pattern.compile("[, ]");
     public static final Pattern PERIOD = Pattern.compile("\\.");
     public static final Pattern DASH = Pattern.compile("-");

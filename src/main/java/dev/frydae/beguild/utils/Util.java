@@ -11,7 +11,8 @@ import java.util.regex.Matcher;
 
 public final class Util {
     /**
-     * Converts {@literal &} characters in a string into section signs
+     * Converts {@literal &} characters in a string into section signs.
+     * <p></p>
      * This conversion acts as a bypass to the new {@link net.minecraft.util.Formatting} system for message.
      * <p></p>
      * While using this method, an ampersand can be included in the final product by escaping it with a backslash.
@@ -62,5 +63,29 @@ public final class Util {
 
     public static void broadcastMessage(Text text) {
         BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(text));
+    }
+
+    public static String ucfirst(String input) {
+        return ucfirst(input, false);
+    }
+
+    public static String ucfirst(String text, boolean allWords) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        if (allWords) {
+            String[] words = Patterns.SPACE.split(text);
+
+            StringBuilder builder = new StringBuilder();
+
+            for (String word : words) {
+                builder.append(word.substring(0, 1).toUpperCase()).append(word.substring(1)).append(" ");
+            }
+
+            return builder.toString().trim();
+        } else {
+            return text.substring(0, 1).toUpperCase() + text.substring(1);
+        }
     }
 }
