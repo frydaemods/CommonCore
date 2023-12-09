@@ -7,7 +7,6 @@
     "ChunkGeneratorMixin",
     "EntityTrackerEntryMixin",
     "PlayerManagerMixin",
-    "ServerPlayNetworkHandlerMixin",
     "StructureStartMixin",
     "accessors.JigsawStructureAccessor"
   ],

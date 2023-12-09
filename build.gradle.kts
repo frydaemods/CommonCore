@@ -27,6 +27,12 @@ dependencies {
     include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
     include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
     include(api(group = "com.mysql", name = "mysql-connector-j", version = "8.2.0"))
+
+    if (projectDir.parentFile.name.equals("BeGuild")) {
+        implementation(project(path = ":Fabric-Events", configuration = "namedElements"))?.let { include(it) }
+    } else {
+        implementation("dev.frydae:fabric-events:${version}")?.let { include(it) }
+    }
 }
 
 loom {

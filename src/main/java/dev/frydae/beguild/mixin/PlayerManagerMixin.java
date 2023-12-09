@@ -3,20 +3,14 @@ package dev.frydae.beguild.mixin;
 import com.llamalad7.mixinextras.injector.WrapWithCondition;
 import dev.frydae.beguild.BeGuildCommon;
 import dev.frydae.beguild.events.ServerPlayerConnectionEvents;
-import dev.frydae.beguild.user.RegisteredUser;
-import dev.frydae.beguild.user.UserManager;
-import dev.frydae.beguild.utils.Util;
-import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,25 +18,6 @@ import java.util.UUID;
 @Mixin(PlayerManager.class)
 public class PlayerManagerMixin {
     @Shadow @Final private List<ServerPlayerEntity> players;
-
-    @Redirect(
-            method = "onPlayerConnect",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcast(Lnet/minecraft/text/Text;Z)V"))
-    public void broadcast(PlayerManager instance, Text message, boolean overlay, ClientConnection connection, ServerPlayerEntity player) {
-        RegisteredUser user = UserManager.getUser(player);
-
-        Text text = null;
-
-        try {
-            text = ServerPlayerConnectionEvents.JOIN_MESSAGE.getInvoker().onJoinMessage(user);
-        } catch (InterruptedException e) {
-            return;
-        }
-
-        if (text != null) {
-            Util.broadcastMessage(text);
-        }
-    }
 
     @WrapWithCondition(
             method = "onPlayerConnect",
