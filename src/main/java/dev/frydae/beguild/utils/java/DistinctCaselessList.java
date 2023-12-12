@@ -41,6 +41,12 @@ public class DistinctCaselessList extends ArrayList<String> {
         return (DistinctCaselessList) super.clone();
     }
 
+    /**
+     * Returns a list of all the strings in this list that are not in the provided list
+     *
+     * @param list the list to compare against
+     * @return a list of strings
+     */
     public DistinctCaselessList getMissing(DistinctCaselessList list) {
         DistinctCaselessList clone = clone();
         clone.removeAll(list);
