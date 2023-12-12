@@ -3,7 +3,7 @@ package dev.frydae.beguild;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
-import lombok.SneakyThrows;
+import dev.frydae.beguild.systems.Log;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,6 @@ import java.lang.reflect.Type;
 
 public class ConfigManager {
     @SafeVarargs
-    @SneakyThrows(IOException.class)
     public static <T> T loadConfig(@NotNull String folderName, @NotNull String fileName, Type type, Pair<Class<?>, TypeAdapter<?>>... typeAdapters) {
         if (!fileName.endsWith(".json")) {
             fileName = fileName + ".json";
@@ -38,6 +37,8 @@ public class ConfigManager {
                         .create();
 
                 return gson.fromJson(reader, type);
+            } catch (IOException e) {
+                Log.exception("Could not load config file " + fileName, e);
             }
         }
 
@@ -45,7 +46,6 @@ public class ConfigManager {
     }
 
     @SafeVarargs
-    @SneakyThrows(IOException.class)
     public static void saveConfig(@NotNull String folderName, @NotNull String fileName, @NotNull Object toSave, Pair<Class<?>, TypeAdapter<?>>... typeAdapters) {
         if (!fileName.endsWith(".json")) {
             fileName = fileName + ".json";
@@ -71,13 +71,17 @@ public class ConfigManager {
             accessManager.mkdirs();
         }
 
-        if (!fileToSave.exists()) {
-            fileToSave.createNewFile();
-        }
+        try {
+            if (!fileToSave.exists()) {
+                fileToSave.createNewFile();
+            }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
-            writer.write(gson.toJson(toSave));
-            writer.newLine();
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                writer.write(gson.toJson(toSave));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            Log.exception("Could not save config file " + fileName, e);
         }
     }
 }

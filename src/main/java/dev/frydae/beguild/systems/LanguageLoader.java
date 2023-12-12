@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import dev.frydae.beguild.ConfigManager;
-import lombok.SneakyThrows;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
@@ -29,7 +28,6 @@ public class LanguageLoader {
         return line;
     }
 
-    @SneakyThrows(IOException.class)
     public static void loadFile(String fileName) {
         Map<String, String> loadedMap = ConfigManager.loadConfig("Language", fileName, new TypeToken<Map<String, String>>(){}.getType());
 
@@ -50,6 +48,8 @@ public class LanguageLoader {
                     languageCache.put(key, value);
                 }
             });
+        } catch (IOException e) {
+            Log.exception("Could not load language file " + fileName, e);
         }
 
         languageCache.entrySet().stream()

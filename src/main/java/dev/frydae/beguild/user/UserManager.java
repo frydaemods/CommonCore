@@ -6,7 +6,6 @@ import dev.frydae.beguild.BeGuildCommon;
 import dev.frydae.beguild.ConfigManager;
 import dev.frydae.beguild.data.Caches;
 import dev.frydae.beguild.utils.TimeUtil;
-import lombok.SneakyThrows;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +31,6 @@ public final class UserManager {
         return getUser(player.getUuid());
     }
 
-    @SneakyThrows
     private static RegisteredUser getUser(@NotNull String variable, @NotNull Object o) {
         RegisteredUser foundUser = switch (variable) {
             case "name" -> Caches.userNameCache.getIfPresent(o);
