@@ -104,7 +104,7 @@ public class NumUtil {
     }
 
     public static boolean isNumber(String str) {
-        return NumberUtils.isNumber(str);
+        return NumberUtils.isCreatable(str);
     }
 
     public static int rand(int min, int max) {
