@@ -6,6 +6,7 @@ import com.google.common.cache.RemovalListener;
 import dev.frydae.beguild.user.RegisteredUser;
 import dev.frydae.beguild.user.UserManager;
 import net.minecraft.server.world.ServerWorld;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +23,7 @@ public final class Caches {
         }
     };
 
-    public static Cache<UUID, Long> timeoutMessageCache =
+    public static Cache<Pair<UUID, String>, Long> timeoutMessageCache =
             CacheBuilder.newBuilder()
                     .maximumSize(256)
                     .expireAfterWrite(3, TimeUnit.SECONDS)

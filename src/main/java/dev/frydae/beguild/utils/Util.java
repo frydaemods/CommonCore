@@ -5,9 +5,11 @@ import dev.frydae.beguild.BeGuildCommon;
 import dev.frydae.beguild.data.Caches;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.regex.Matcher;
 
 public final class Util {
@@ -56,11 +58,13 @@ public final class Util {
         sendMessage(player, builder.toString());
     }
 
-    public static void sendTimeoutMessage(@NotNull ServerPlayerEntity player, @FormatString String message, Object... replacements) {
-        if (Caches.timeoutMessageCache.getIfPresent(player.getUuid()) == null) {
+    public static void sendTimeoutMessage(@NotNull ServerPlayerEntity player, @NotNull String key, @FormatString String message, Object... replacements) {
+        Pair<UUID, String> cacheKey = Pair.of(player.getUuid(), key);
+
+        if (Caches.timeoutMessageCache.getIfPresent(cacheKey) == null) {
             sendMessage(player, message, replacements);
 
-            Caches.timeoutMessageCache.put(player.getUuid(), TimeUtil.timestamp());
+            Caches.timeoutMessageCache.put(cacheKey, TimeUtil.timestamp());
         }
     }
 
