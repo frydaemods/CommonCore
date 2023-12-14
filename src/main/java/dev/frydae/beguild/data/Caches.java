@@ -22,6 +22,12 @@ public final class Caches {
         }
     };
 
+    public static Cache<UUID, Long> timeoutMessageCache =
+            CacheBuilder.newBuilder()
+                    .maximumSize(256)
+                    .expireAfterWrite(3, TimeUnit.SECONDS)
+                    .build();
+
     public static Cache<UUID, RegisteredUser> userUuidCache =
             CacheBuilder.newBuilder()
                     .maximumSize(256)

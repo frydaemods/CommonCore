@@ -2,6 +2,7 @@ package dev.frydae.beguild.utils;
 
 import com.google.errorprone.annotations.FormatString;
 import dev.frydae.beguild.BeGuildCommon;
+import dev.frydae.beguild.data.Caches;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
@@ -53,6 +54,14 @@ public final class Util {
         }
 
         sendMessage(player, builder.toString());
+    }
+
+    public static void sendTimeoutMessage(@NotNull ServerPlayerEntity player, @FormatString String message, Object... replacements) {
+        if (Caches.timeoutMessageCache.getIfPresent(player.getUuid()) == null) {
+            sendMessage(player, message, replacements);
+
+            Caches.timeoutMessageCache.put(player.getUuid(), TimeUtil.timestamp());
+        }
     }
 
     public static void broadcastMessage(String message, Object... replacements) {
