@@ -30,9 +30,3 @@ gradleEnterprise {
 }
 
 rootProject.name = "BeGuild-Common"
-
-if (rootProject.projectDir.parentFile.name.equals("BeGuild")) {
-    include("Fabric-Events")
-
-    project(":Fabric-Events").projectDir = file("../Fabric-Events")
-}
