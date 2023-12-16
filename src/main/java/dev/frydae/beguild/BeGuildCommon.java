@@ -3,7 +3,6 @@ package dev.frydae.beguild;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import dev.frydae.beguild.events.ServerEvents;
-import dev.frydae.beguild.systems.LanguageLoader;
 import dev.frydae.beguild.user.RegisteredUser;
 import dev.frydae.beguild.user.UserManager;
 import dev.frydae.beguild.utils.taskchain.FabricTaskChainFactory;
@@ -97,8 +96,6 @@ public class BeGuildCommon implements DedicatedServerModInitializer {
 
         ServerEvents.POST_SINGLETON.register(server -> {
             getSingleton().taskChainFactory = FabricTaskChainFactory.create(server);
-
-            LanguageLoader.loadFile("en_us.json");
 
             UserManager.loadUsers();
         });
