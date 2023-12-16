@@ -17,9 +17,6 @@
   "entrypoints": {
     "server": [
       "dev.frydae.beguild.BeGuildCommon"
-    ],
-    "client": [
-      "dev.frydae.beguild.BeGuildClientMod"
     ]
   },
   "mixins": [
