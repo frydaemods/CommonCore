@@ -63,21 +63,19 @@ public class BlockDataPersistence extends PersistentState {
     public static ItemStack getFromLocation(@NotNull Location location) {
         HashMap<Location, ItemStack> map = get().items;
 
-        final ItemStack orDefault = map.getOrDefault(location, null);
+        ItemStack foundStack = map.getOrDefault(location, null);
 
-        if (orDefault != null) {
-            System.out.printf("Removing %s from %s%n", orDefault, location);
-            map.remove(location, orDefault);
+        if (foundStack != null) {
+            map.remove(location, foundStack);
         }
 
-        return orDefault;
+        return foundStack;
     }
 
     public static void storeBlockMeta(@NotNull Location location, @NotNull ItemStack stack) {
         ItemStack copy = stack.copy();
         copy.setCount(1);
 
-        System.out.printf("Putting %s at %s%n", copy, location);
         get().items.put(location, copy);
     }
 }
