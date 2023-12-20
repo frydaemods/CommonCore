@@ -1,5 +1,8 @@
 package dev.frydae.beguild.utils;
 
+import dev.frydae.beguild.BeGuildCommon;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
@@ -102,6 +105,20 @@ public record Location(@NotNull World world, @NotNull Double x, @NotNull Double 
 
     @Override
     public String toString() {
-        return String.format("Location{world=%s, x=%s, y=%s, z=%s}", world.getRegistryKey().getValue(), x, y, z);
+        return String.format("%s,%s,%s,%s", world.getRegistryKey().getValue().getPath(), x, y, z);
+    }
+
+    public static Location fromString(String string) {
+        String[] split = string.split(",");
+
+        MinecraftServer server = BeGuildCommon.getSingleton().getServer();
+
+        for (RegistryKey<World> r : server.getWorldRegistryKeys()) {
+            if (r.getValue().getPath().equals(split[0])) {
+                return new Location(Objects.requireNonNull(server.getWorld(r)), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]));
+            }
+        }
+
+        return null;
     }
 }
