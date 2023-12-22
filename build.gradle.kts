@@ -21,7 +21,7 @@ dependencies {
     include(api(group = "co.aikar", name = "taskchain-core", version = "3.7.2"))
     include(api(group = "co.aikar", name = "idb-core", version = "1.0.0-SNAPSHOT"))
 
-    modImplementation("com.sk89q.worldedit:worldedit-fabric-mc1.20.2:7.2.17")
+    modImplementation("com.sk89q.worldedit:worldedit-fabric-mc1.20.4:7.2.18-SNAPSHOT")
     modImplementation("xyz.nucleoid:fantasy:0.4.11+1.20-rc1")?.let { include(it) }
 
     include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
