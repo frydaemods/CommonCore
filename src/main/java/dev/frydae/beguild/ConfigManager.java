@@ -19,8 +19,8 @@ public class ConfigManager {
         }
 
         File configDir = FabricLoader.getInstance().getConfigDir().toFile();
-        File accessManager = new File(configDir, folderName);
-        File file = new File(accessManager, fileName);
+        File folderDir = new File(configDir, folderName);
+        File file = new File(folderDir, fileName);
 
         if (file.exists()) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -64,11 +64,11 @@ public class ConfigManager {
         Gson gson = builder.create();
 
         File configDir = FabricLoader.getInstance().getConfigDir().toFile();
-        File accessManager = new File(configDir, folderName);
-        File fileToSave = new File(accessManager, fileName);
+        File folderDir = new File(configDir, folderName);
+        File fileToSave = new File(folderDir, fileName);
 
-        if (!accessManager.exists()) {
-            accessManager.mkdirs();
+        if (!folderDir.exists()) {
+            folderDir.mkdirs();
         }
 
         try {
