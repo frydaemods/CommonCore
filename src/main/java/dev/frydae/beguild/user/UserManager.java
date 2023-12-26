@@ -23,7 +23,7 @@ public final class UserManager {
         return getUser("uuid", uuid);
     }
 
-    public static RegisteredUser getUser(@NotNull Long userId) {
+    public static RegisteredUser getUser(@NotNull Integer userId) {
         return getUser("userId", userId);
     }
 
@@ -105,9 +105,9 @@ public final class UserManager {
         refreshCaches(user);
     }
 
-    private static Long getNextUserId() {
+    private static Integer getNextUserId() {
         return USER_CACHE.stream()
-                .mapToLong(RegisteredUser::getUserId)
+                .mapToInt(RegisteredUser::getUserId)
                 .max()
                 .orElse(0) + 1;
     }
