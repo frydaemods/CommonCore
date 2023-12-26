@@ -15,6 +15,8 @@ import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.MinecraftServer;
+import xyz.nucleoid.server.translations.api.language.ServerLanguageDefinition;
+import xyz.nucleoid.server.translations.impl.ServerTranslations;
 
 import java.util.List;
 import java.util.Map;
@@ -85,6 +87,9 @@ public class BeGuildCommon implements DedicatedServerModInitializer {
         registerLifecycleEvents();
 
         registerCommands();
+
+        ServerLanguageDefinition language = ServerTranslations.INSTANCE.getLanguageDefinition("en_us");
+        ServerTranslations.INSTANCE.setSystemLanguage(language);
     }
 
     private void registerLifecycleEvents() {

@@ -58,11 +58,25 @@ public final class Util {
         sendMessage(player, builder.toString());
     }
 
+    public static void sendMessage(@NotNull ServerPlayerEntity player, @NotNull Text text) {
+        player.sendMessage(text);
+    }
+
     public static void sendTimeoutMessage(@NotNull ServerPlayerEntity player, @NotNull String key, @FormatString String message, Object... replacements) {
         Pair<UUID, String> cacheKey = Pair.of(player.getUuid(), key);
 
         if (Caches.timeoutMessageCache.getIfPresent(cacheKey) == null) {
             sendMessage(player, message, replacements);
+
+            Caches.timeoutMessageCache.put(cacheKey, TimeUtil.timestamp());
+        }
+    }
+
+    public static void sendTimeoutMessage(@NotNull ServerPlayerEntity player, @NotNull String key, @NotNull Text message) {
+        Pair<UUID, String> cacheKey = Pair.of(player.getUuid(), key);
+
+        if (Caches.timeoutMessageCache.getIfPresent(cacheKey) == null) {
+            player.sendMessage(message);
 
             Caches.timeoutMessageCache.put(cacheKey, TimeUtil.timestamp());
         }
