@@ -31,17 +31,6 @@ dependencies {
     modImplementation("xyz.nucleoid:server-translations-api:2.2.0+1.20.3-rc1")?.let { include(it) }
 }
 
-loom {
-    splitEnvironmentSourceSets()
-
-    mods {
-        create("beguild-common") {
-            sourceSet(sourceSets.getByName("main"))
-            sourceSet(sourceSets.getByName("client"))
-        }
-    }
-}
-
 tasks {
     processResources {
         inputs.property("version", project.version)
