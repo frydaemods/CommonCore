@@ -29,7 +29,7 @@ public class BeGuildCommon implements DedicatedServerModInitializer {
     private static volatile BeGuildCommon singleton;
 
     @Getter private MinecraftServer server;
-    private TaskChainFactory taskChainFactory;
+    @Getter private TaskChainFactory taskChainFactory;
 
     public static void registerCommands() {
         registerContexts();

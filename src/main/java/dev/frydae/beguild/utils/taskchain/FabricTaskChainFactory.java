@@ -40,24 +40,16 @@ public class FabricTaskChainFactory extends TaskChainFactory {
         @Override
         public void postToMain(Runnable run) {
             if (server.isRunning()) {
-                run.run();
+                server.executeSync(run);
             } else {
                 run.run();
             }
         }
 
         @Override
-        public void scheduleTask(int gameUnits, Runnable run) {
+        public void scheduleTask(int waitTicks, Runnable run) {
             if (server.isRunning()) {
-                new Thread(() -> {
-                    try {
-                        Thread.currentThread().wait(gameUnits * 50L);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    run.run();
-                }).start();
+                TaskManager.getInstance().addTask(waitTicks, run);
             } else {
                 run.run();
             }
