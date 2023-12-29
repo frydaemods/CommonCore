@@ -12,6 +12,7 @@
     "EntityTrackerEntryMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",
+    "PlayerInventoryMixin",
     "PlayerManagerMixin",
     "StructureStartMixin",
     "accessors.JigsawStructureAccessor",
