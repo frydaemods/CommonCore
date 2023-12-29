@@ -11,8 +11,10 @@
     "ChunkGeneratorMixin",
     "EntityTrackerEntryMixin",
     "MinecraftServerMixin",
+    "PlayerEntityMixin",
     "PlayerManagerMixin",
     "StructureStartMixin",
-    "accessors.JigsawStructureAccessor"
+    "accessors.JigsawStructureAccessor",
+    "accessors.PlayerManagerAccessor"
   ]
 }
