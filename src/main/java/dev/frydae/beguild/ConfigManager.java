@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class ConfigManager {
     @SafeVarargs
@@ -18,12 +20,12 @@ public class ConfigManager {
             fileName = fileName + ".json";
         }
 
-        File configDir = FabricLoader.getInstance().getConfigDir().toFile();
-        File folderDir = new File(configDir, folderName);
-        File file = new File(folderDir, fileName);
+        Path configDir = FabricLoader.getInstance().getConfigDir();
+        Path folderDir = configDir.resolve(folderName);
+        Path fileToLoad = folderDir.resolve(fileName);
 
-        if (file.exists()) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        if (Files.exists(fileToLoad)) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileToLoad.toString()))) {
                 GsonBuilder builder = new GsonBuilder();
 
                 if (typeAdapters != null) {
@@ -63,20 +65,18 @@ public class ConfigManager {
 
         Gson gson = builder.create();
 
-        File configDir = FabricLoader.getInstance().getConfigDir().toFile();
-        File folderDir = new File(configDir, folderName);
-        File fileToSave = new File(folderDir, fileName);
-
-        if (!folderDir.exists()) {
-            folderDir.mkdirs();
-        }
+        Path configDir = FabricLoader.getInstance().getConfigDir();
+        Path folderDir = configDir.resolve(folderName);
+        Path fileToSave = folderDir.resolve(fileName);
 
         try {
-            if (!fileToSave.exists()) {
-                fileToSave.createNewFile();
+            Files.createDirectories(folderDir);
+
+            if (!Files.exists(fileToSave)) {
+                Files.createFile(fileToSave);
             }
 
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave.toString()))) {
                 writer.write(gson.toJson(toSave));
                 writer.newLine();
             }
