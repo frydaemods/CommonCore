@@ -3,7 +3,6 @@ package dev.frydae.beguild;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
-import dev.frydae.beguild.systems.Log;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +39,7 @@ public class ConfigManager {
 
                 return gson.fromJson(reader, type);
             } catch (IOException e) {
-                Log.exception("Could not load config file " + fileName, e);
+                BeGuildCommon.getLogger().error("Could not load config file " + fileName, e);
             }
         }
 
@@ -81,7 +80,7 @@ public class ConfigManager {
                 writer.newLine();
             }
         } catch (IOException e) {
-            Log.exception("Could not save config file " + fileName, e);
+            BeGuildCommon.getLogger().error("Could not save config file " + fileName, e);
         }
     }
 }
