@@ -52,7 +52,7 @@ public final class UserManager {
             };
 
             if (field != null && field.equals(o)) {
-                ServerPlayerEntity player = BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayer(registeredUser.getUuid());
+                ServerPlayerEntity player = BeGuildCommon.getServer().getPlayerManager().getPlayer(registeredUser.getUuid());
 
                 // Might be null, which is okay
                 registeredUser.setPlayer(player);

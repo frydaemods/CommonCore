@@ -51,7 +51,7 @@ public class BlockDataPersistence extends PersistentState {
     }
 
     public static BlockDataPersistence get() {
-        MinecraftServer server = BeGuildCommon.getSingleton().getServer();
+        MinecraftServer server = BeGuildCommon.getServer();
         PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
         BlockDataPersistence state = persistentStateManager.getOrCreate(type, "beguild_block_meta");
 

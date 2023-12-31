@@ -27,7 +27,7 @@ public class PlayerManagerMixin {
 
         if (packet instanceof PlayerListS2CPacket newPacket) {
             UUID uuid = newPacket.getEntries().get(0).profileId();
-            ServerPlayerEntity playerToSend = BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayer(uuid);
+            ServerPlayerEntity playerToSend = BeGuildCommon.getServer().getPlayerManager().getPlayer(uuid);
 
             List<ServerPlayerEntity> playersToSendTo = ServerPlayerConnectionEvents.SEND_PLAYER_LIST_FILTER.getInvoker().onSendPlayerListFilter(newPacket, playerToSend, players);
 

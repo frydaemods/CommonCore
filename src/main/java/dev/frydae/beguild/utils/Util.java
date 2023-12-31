@@ -92,7 +92,7 @@ public final class Util {
     }
 
     public static void broadcastMessage(Text text) {
-        BeGuildCommon.getSingleton().getServer().getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(text));
+        BeGuildCommon.getServer().getPlayerManager().getPlayerList().forEach(player -> player.sendMessage(text));
     }
 
     public static String ucfirst(String input) {
@@ -120,7 +120,7 @@ public final class Util {
     }
 
     public static ServerPlayerEntity findPlayer(UUID uuid) {
-        MinecraftServer server = BeGuildCommon.getSingleton().getServer();
+        MinecraftServer server = BeGuildCommon.getServer();
         GameProfile profile = new GameProfile(uuid, "Player Name");
 
         ServerPlayerEntity player = server.getPlayerManager().getPlayer(profile.getId());

@@ -20,7 +20,7 @@ public class Log {
 
     public static void warn(String message) {
         for (String s : Patterns.NEWLINE.split(message)) {
-            BeGuildCommon.getLogger().warning(s);
+            BeGuildCommon.getLogger().warn(s);
         }
     }
 
@@ -29,7 +29,7 @@ public class Log {
     }
 
     public static void severe(String[] lines) {
-        Arrays.stream(lines).forEach(line -> BeGuildCommon.getLogger().severe(line));
+        Arrays.stream(lines).forEach(line -> BeGuildCommon.getLogger().error(line));
     }
 
     public static void error(String message) {

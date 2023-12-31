@@ -111,7 +111,7 @@ public record Location(@NotNull World world, @NotNull Double x, @NotNull Double 
     public static Location fromString(String string) {
         String[] split = string.split(",");
 
-        MinecraftServer server = BeGuildCommon.getSingleton().getServer();
+        MinecraftServer server = BeGuildCommon.getServer();
 
         for (RegistryKey<World> r : server.getWorldRegistryKeys()) {
             if (r.getValue().getPath().equals(split[0])) {

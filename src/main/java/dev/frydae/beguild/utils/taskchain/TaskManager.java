@@ -46,7 +46,7 @@ public final class TaskManager {
             if (pendingTask.getRemainingTicks() > 0) {
                 pendingTask.tick();
             } else {
-                BeGuildCommon.getSingleton().getServer().executeSync(pendingTask.getRunnable());
+                BeGuildCommon.getServer().executeSync(pendingTask.getRunnable());
 
                 pendingTasks.remove(pendingTask);
             }
