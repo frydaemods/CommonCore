@@ -84,7 +84,8 @@ public final class ExceptionUtils {
         getLogger().atLevel(e.getLevel()).log(e.getMessage());
     }
 
-    public static <T extends Throwable> void sneakyThrows(Throwable t) {
+    @SuppressWarnings("RedundantTypeArguments")
+    public static void sneakyThrows(Throwable t) {
         if (t instanceof LoggableException loggableException) {
             logException(loggableException);
         }
@@ -92,7 +93,8 @@ public final class ExceptionUtils {
         ExceptionUtils.<RuntimeException>superSneaky(t);
     }
 
-    private static <T extends Throwable> T superSneaky(Throwable t) throws T {
+    @SuppressWarnings("unchecked")
+    private static <T extends Throwable> void superSneaky(Throwable t) throws T {
         throw (T) t;
     }
 }
