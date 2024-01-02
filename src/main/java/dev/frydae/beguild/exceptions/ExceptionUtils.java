@@ -10,6 +10,10 @@ import org.slf4j.event.Level;
 public final class ExceptionUtils {
     @Getter private static final Logger logger = LogUtils.getLogger();
 
+    public static void abort() {
+        sneakyThrows(new LoggableException("Aborting... Someone doesn't care enough to add a message."));
+    }
+
     public static void abort(String message, Level level, Object... args) {
         if (args != null && args.length > 0) {
             message = message.formatted(args);
@@ -36,27 +40,33 @@ public final class ExceptionUtils {
         abort(message.formatted(args), level);
     }
 
-    public static void verify(boolean condition, String message, Object... args) {
+    public static void verifyTrue(boolean condition, String message, Object... args) {
         if (!condition) {
             abort(message, args);
         }
     }
 
+    public static void verifyFalse(boolean condition, String message, Object... args) {
+        if (condition) {
+            abort(message, args);
+        }
+    }
+
     public static void verifyNull(@Nullable Object object, String message, Object... args) {
-        verify(object == null, message, args);
+        verifyTrue(object == null, message, args);
     }
 
     public static void verifyNonNull(Object object, String message, Object... args) {
-        verify(object != null, message, args);
+        verifyTrue(object != null, message, args);
     }
 
     public static void verifyNotEquals(@Nullable Object object, @Nullable Object other, String message, Object... args) {
         if (object == null || other == null) {
             boolean bothNull = object == null && other == null;
 
-            verify(!bothNull, message, args);
+            verifyFalse(bothNull, message, args);
         } else {
-            verify(!object.equals(other), message, args);
+            verifyFalse(object.equals(other), message, args);
         }
     }
 
@@ -64,9 +74,9 @@ public final class ExceptionUtils {
         if (object == null || other == null) {
             boolean bothNull = object == null && other == null;
 
-            verify(bothNull, message, args);
+            verifyTrue(bothNull, message, args);
         } else {
-            verify(object.equals(other), message, args);
+            verifyTrue(object.equals(other), message, args);
         }
     }
 

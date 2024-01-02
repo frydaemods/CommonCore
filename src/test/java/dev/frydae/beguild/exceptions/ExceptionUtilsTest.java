@@ -7,9 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExceptionUtilsTest {
     @Test
-    public void testVerify() {
-        assertDoesNotThrow(() -> ExceptionUtils.verify(true, "Test"));
-        assertThrows(LoggableException.class, () -> ExceptionUtils.verify(false, "Test"));
+    public void testVerifyTrue() {
+        assertDoesNotThrow(() -> ExceptionUtils.verifyTrue(true, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyTrue(false, "Test"));
+    }
+
+    @Test
+    public void testVerifyFalse() {
+        assertDoesNotThrow(() -> ExceptionUtils.verifyFalse(false, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyFalse(true, "Test"));
     }
 
     @Test
