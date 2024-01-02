@@ -1,19 +1,15 @@
 package dev.frydae.beguild.systems;
 
 import com.google.common.collect.Maps;
-import dev.frydae.beguild.BeGuildCommon;
+import dev.frydae.beguild.data.BeGuildDataStore;
 import dev.frydae.beguild.utils.Location;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.PersistentState;
-import net.minecraft.world.PersistentStateManager;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-public class BlockDataPersistence extends PersistentState {
+public class BlockDataPersistence extends BeGuildDataStore {
     public HashMap<Location, ItemStack> items = Maps.newHashMap();
 
     private static final Type<BlockDataPersistence> type = new Type<>(
@@ -51,13 +47,7 @@ public class BlockDataPersistence extends PersistentState {
     }
 
     public static BlockDataPersistence get() {
-        MinecraftServer server = BeGuildCommon.getServer();
-        PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
-        BlockDataPersistence state = persistentStateManager.getOrCreate(type, "beguild_block_meta");
-
-        state.markDirty();
-
-        return state;
+        return get(type, "beguild_block_meta");
     }
 
     public static ItemStack getFromLocation(@NotNull Location location) {

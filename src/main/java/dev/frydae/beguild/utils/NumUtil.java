@@ -7,6 +7,18 @@ import java.util.List;
 import java.util.Random;
 
 public class NumUtil {
+    public static Integer roundToMultiple(Integer number, Integer multiple) {
+        return ((number + (multiple - 1)) / multiple) * multiple;
+    }
+
+    public static Long roundToMultiple(Long number, Long multiple) {
+        return ((number + (multiple - 1)) / multiple) * multiple;
+    }
+
+    public static Double roundToMultiple(Double number, Double multiple) {
+        return Math.ceil(((number + (multiple - 1)) / multiple) * multiple);
+    }
+
     public static Double round(Double number) {
         return round(number, 0);
     }

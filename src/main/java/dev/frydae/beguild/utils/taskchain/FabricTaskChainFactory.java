@@ -1,15 +1,22 @@
 package dev.frydae.beguild.utils.taskchain;
 
-import co.aikar.taskchain.AsyncQueue;
-import co.aikar.taskchain.GameInterface;
-import co.aikar.taskchain.TaskChainAsyncQueue;
-import co.aikar.taskchain.TaskChainFactory;
+import co.aikar.taskchain.*;
+import dev.frydae.beguild.utils.Util;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 import java.util.concurrent.TimeUnit;
 
 public class FabricTaskChainFactory extends TaskChainFactory {
+    public static final TaskChainAbortAction<ServerPlayerEntity, String, ?> COLOR_MESSAGE = new TaskChainAbortAction<>() {
+        @Override
+        public void onAbort(TaskChain<?> chain, ServerPlayerEntity player, String message) {
+            player.sendMessage(Text.literal(Util.color(message)));
+        }
+    };
+
     private FabricTaskChainFactory(MinecraftServer server, AsyncQueue asyncQueue) {
         super(new FabricGameInterface(server, asyncQueue));
     }
