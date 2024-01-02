@@ -1,6 +1,7 @@
 package dev.frydae.beguild.utils;
 
 import dev.frydae.beguild.BeGuildCommon;
+import lombok.Getter;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +12,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public record Location(@NotNull World world, @NotNull Double x, @NotNull Double y, @NotNull Double z) {
+@Getter
+public final class Location {
+    private final World world;
+    private final Double x;
+    private final Double y;
+    private final Double z;
+
     public Location(@NotNull World world, @NotNull BlockPos pos) {
         this(world, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
     }
@@ -26,6 +33,13 @@ public record Location(@NotNull World world, @NotNull Double x, @NotNull Double 
 
     public Location(@NotNull World world, @NotNull Integer x, @NotNull Integer y, @NotNull Integer z) {
         this(world, (double) x, (double) y, (double) z);
+    }
+
+    public Location(@NotNull World world, @NotNull Double x, @NotNull Double y, @NotNull Double z) {
+        this.world = world;
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     @NotNull
@@ -98,7 +112,7 @@ public record Location(@NotNull World world, @NotNull Double x, @NotNull Double 
     }
 
     public boolean isWithin(@NotNull Location lowLoc, @NotNull Location highLoc) {
-        return  lowLoc.getBlockX() <= getBlockX() && getBlockX() <= highLoc.getBlockX() &&
+        return lowLoc.getBlockX() <= getBlockX() && getBlockX() <= highLoc.getBlockX() &&
                 lowLoc.getBlockY() <= getBlockY() && getBlockY() <= highLoc.getBlockY() &&
                 lowLoc.getBlockZ() <= getBlockZ() && getBlockZ() <= highLoc.getBlockZ();
     }
