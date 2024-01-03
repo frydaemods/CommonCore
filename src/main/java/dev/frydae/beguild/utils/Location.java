@@ -2,13 +2,16 @@ package dev.frydae.beguild.utils;
 
 import dev.frydae.beguild.BeGuildCommon;
 import lombok.Getter;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -18,6 +21,8 @@ public final class Location {
     private final Double x;
     private final Double y;
     private final Double z;
+    private final Float yaw;
+    private final Float pitch;
 
     public Location(@NotNull World world, @NotNull BlockPos pos) {
         this(world, (double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
@@ -32,14 +37,24 @@ public final class Location {
     }
 
     public Location(@NotNull World world, @NotNull Integer x, @NotNull Integer y, @NotNull Integer z) {
-        this(world, (double) x, (double) y, (double) z);
+        this(world, (double) x, (double) y, (double) z, 0F, 0F);
     }
 
     public Location(@NotNull World world, @NotNull Double x, @NotNull Double y, @NotNull Double z) {
+        this(world, x, y, z, 0F, 0F);
+    }
+
+    public Location(@NotNull World world, @NotNull Integer x, @NotNull Integer y, @NotNull Integer z, @NotNull Float yaw, @NotNull Float pitch) {
+        this(world, (double) x, (double) y, (double) z, yaw, pitch);
+    }
+
+    public Location(@NotNull World world, @NotNull Double x, @NotNull Double y, @NotNull Double z, @NotNull Float yaw, @NotNull Float pitch) {
         this.world = world;
         this.x = x;
         this.y = y;
         this.z = z;
+        this.yaw = yaw;
+        this.pitch = pitch;
     }
 
     @NotNull
@@ -117,19 +132,59 @@ public final class Location {
                 lowLoc.getBlockZ() <= getBlockZ() && getBlockZ() <= highLoc.getBlockZ();
     }
 
+    @NotNull
+    public static Location fromPlayer(@NotNull ServerPlayerEntity player) {
+        return new Location(player.getServerWorld(), player.getX(), player.getY(), player.getZ(), player.getYaw(), player.getPitch());
+    }
+
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s", world.getRegistryKey().getValue().getPath(), x, y, z);
+        return String.format("%s,%s,%s,%s,%s,%s", world.getRegistryKey().getValue().getPath(), x, y, z, yaw, pitch);
+    }
+
+    public NbtCompound toCompound() {
+        NbtCompound compound = new NbtCompound();
+
+        compound.putString("world", world.getRegistryKey().getValue().getPath());
+        compound.putDouble("x", x);
+        compound.putDouble("y", y);
+        compound.putDouble("z", z);
+        compound.putFloat("yaw", yaw);
+        compound.putFloat("pitch", pitch);
+
+        return compound;
     }
 
     public static Location fromString(String string) {
         String[] split = string.split(",");
 
+        World world = findWorld(split[0]);
+
+        if (world != null) {
+            return new Location(world, Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
+        }
+
+        return null;
+    }
+
+    public static Location fromCompound(NbtCompound compound) {
+        return new Location(
+                Objects.requireNonNull(findWorld(compound.getString("world"))),
+                compound.getDouble("x"),
+                compound.getDouble("y"),
+                compound.getDouble("z"),
+                compound.getFloat("yaw"),
+                compound.getFloat("pitch")
+        );
+    }
+
+    @Nullable
+    private static World findWorld(@NotNull String name) {
         MinecraftServer server = BeGuildCommon.getServer();
 
-        for (RegistryKey<World> r : server.getWorldRegistryKeys()) {
-            if (r.getValue().getPath().equals(split[0])) {
-                return new Location(Objects.requireNonNull(server.getWorld(r)), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]));
+        for (RegistryKey<World> worldRegistryKey : server.getWorldRegistryKeys()) {
+            if (worldRegistryKey.getValue().getPath().equals(name)) {
+                return server.getWorld(worldRegistryKey);
             }
         }
 
