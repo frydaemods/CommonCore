@@ -1,19 +1,25 @@
 package dev.frydae.beguild.user;
 
 import com.google.common.collect.Lists;
-import com.google.common.reflect.TypeToken;
 import dev.frydae.beguild.BeGuildCommon;
-import dev.frydae.beguild.ConfigManager;
+import dev.frydae.beguild.data.BeGuildDataStore;
 import dev.frydae.beguild.data.Caches;
 import dev.frydae.beguild.utils.TimeUtil;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.UUID;
 
-public final class UserManager {
-    private static final List<RegisteredUser> USER_CACHE = Lists.newArrayList();
+public final class UserManager extends BeGuildDataStore {
+    private final List<RegisteredUser> users = Lists.newCopyOnWriteArrayList();
+
+    private static final Type<UserManager> type = new Type<>(
+            UserManager::new,
+            UserManager::createFromNbt,
+            null
+    );
 
     public static RegisteredUser getUser(@NotNull String name) {
         return getUser("name", name);
@@ -43,7 +49,7 @@ public final class UserManager {
             return foundUser;
         }
 
-        for (RegisteredUser registeredUser : USER_CACHE) {
+        for (RegisteredUser registeredUser : get().users) {
             Object field = switch (variable) {
                 case "name" -> registeredUser.getName();
                 case "uuid" -> registeredUser.getUuid();
@@ -72,17 +78,48 @@ public final class UserManager {
         Caches.userIdCache.put(user.getUserId(), user);
     }
 
-    public static void loadUsers() {
-        List<RegisteredUser> users = ConfigManager.loadConfig("BeGuild", "registered_users", new TypeToken<List<RegisteredUser>>(){}.getType());
-
-        if (users != null && !users.isEmpty()) {
-            USER_CACHE.clear();
-            USER_CACHE.addAll(users);
-        }
+    public static UserManager get() {
+        return get(type, "beguild_users");
     }
 
-    public static void saveUsers() {
-        ConfigManager.saveConfig("BeGuild", "registered_users", USER_CACHE);
+    private static UserManager createFromNbt(NbtCompound nbt) {
+        UserManager store = new UserManager();
+
+        nbt.getKeys().forEach(key -> {
+            NbtCompound userCompound = nbt.getCompound(key);
+
+            RegisteredUser user = new RegisteredUser(userCompound.getUuid("uuid"));
+
+            user.setUserId(userCompound.getInt("userId"));
+            user.setName(userCompound.getString("name"));
+            user.setLastLogin(userCompound.getLong("lastLogin"));
+            user.setFirstLogin(userCompound.getLong("firstLogin"));
+            user.setOp(userCompound.getBoolean("op"));
+
+            store.users.add(user);
+        });
+
+        return store;
+    }
+
+    @Override
+    public NbtCompound writeNbt(NbtCompound nbt) {
+        NbtCompound compound = new NbtCompound();
+
+        for (RegisteredUser user : users) {
+            NbtCompound userCompound = new NbtCompound();
+
+            userCompound.putInt("userId", user.getUserId());
+            userCompound.putString("name", user.getName());
+            userCompound.putUuid("uuid", user.getUuid());
+            userCompound.putLong("lastLogin", user.getLastLogin());
+            userCompound.putLong("firstLogin", user.getFirstLogin());
+            userCompound.putBoolean("op", user.isOp());
+
+            compound.put(String.valueOf(user.getUserId()), userCompound);
+        }
+
+        return compound;
     }
 
     public static void addOrUpdatePlayer(ServerPlayerEntity player) {
@@ -94,7 +131,7 @@ public final class UserManager {
             user.setUserId(getNextUserId());
             user.setFirstLogin(TimeUtil.timestamp());
 
-            USER_CACHE.add(user);
+            get().users.add(user);
         }
 
         user.setName(player.getName().getString());
@@ -106,7 +143,7 @@ public final class UserManager {
     }
 
     private static Integer getNextUserId() {
-        return USER_CACHE.stream()
+        return get().users.stream()
                 .mapToInt(RegisteredUser::getUserId)
                 .max()
                 .orElse(0) + 1;
@@ -118,12 +155,12 @@ public final class UserManager {
         if (lastDays != null) {
             long timeSince = TimeUtil.timestamp() - TimeUtil.DAY.inSeconds(lastDays);
 
-            USER_CACHE.stream()
+            get().users.stream()
                     .filter(registeredUser -> registeredUser.getLastLogin() > timeSince)
                     .map(RegisteredUser::getName)
                     .forEach(names::add);
         } else {
-            USER_CACHE.stream().map(RegisteredUser::getName).forEach(names::add);
+            get().users.stream().map(RegisteredUser::getName).forEach(names::add);
         }
 
         return names;

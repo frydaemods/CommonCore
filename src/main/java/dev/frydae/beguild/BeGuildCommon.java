@@ -4,10 +4,14 @@ import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import com.mojang.logging.LogUtils;
 import dev.frydae.beguild.loader.BeGuildMod;
+import dev.frydae.beguild.systems.BlockDataPersistence;
 import dev.frydae.beguild.user.RegisteredUser;
 import dev.frydae.beguild.user.UserManager;
 import dev.frydae.beguild.utils.taskchain.FabricTaskChainFactory;
-import dev.frydae.commands.*;
+import dev.frydae.commands.FabricCommandCompletions;
+import dev.frydae.commands.FabricCommandConditions;
+import dev.frydae.commands.FabricCommandContexts;
+import dev.frydae.commands.IllegalCommandException;
 import lombok.Getter;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.MinecraftServer;
@@ -19,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class BeGuildCommon extends BeGuildMod {
     @Getter private static ScheduledExecutorService scheduler;
@@ -83,17 +86,17 @@ public class BeGuildCommon extends BeGuildMod {
         ServerTranslations.INSTANCE.setSystemLanguage(language);
 
         taskChainFactory = FabricTaskChainFactory.create(server);
+    }
 
-        UserManager.loadUsers();
-
-        scheduler.scheduleAtFixedRate(UserManager::saveUsers, 1, 1, TimeUnit.MINUTES);
+    @Override
+    public void onStarted(MinecraftServer server) {
+        UserManager.get();
+        BlockDataPersistence.get();
     }
 
     @Override
     public void onStopping(MinecraftServer server) {
         scheduler.shutdownNow();
-
-        UserManager.saveUsers();
     }
 
     public static <T> TaskChain<T> newChain() {
