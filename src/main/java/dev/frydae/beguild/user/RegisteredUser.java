@@ -1,9 +1,12 @@
 package dev.frydae.beguild.user;
 
-import com.google.gson.annotations.Expose;
+import com.mojang.authlib.GameProfile;
+import dev.frydae.beguild.BeGuildCommon;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,12 +15,35 @@ import java.util.UUID;
 @Getter @Setter
 @RequiredArgsConstructor
 public class RegisteredUser {
-    @Expose private Integer userId;
-    @Expose private String name;
-    @Expose private final UUID uuid;
-    @Expose private Long lastLogin;
-    @Expose private Long firstLogin;
-    @Expose private boolean op;
+    private Integer userId;
+    private String name;
+    private final UUID uuid;
+    private Long lastLogin;
+    private Long firstLogin;
+    private boolean op;
 
     @Nullable private ServerPlayerEntity player;
+
+    /**
+     * Either returns the player object in this user, or creates a fake player object if the player is not online.
+     *
+     * @return a {@link ServerPlayerEntity player}
+     */
+    public ServerPlayerEntity getPlayer() {
+        if (player != null) {
+            return player;
+        }
+
+        MinecraftServer server = BeGuildCommon.getServer();
+        GameProfile profile = new GameProfile(uuid, "Player Name");
+
+        ServerPlayerEntity fakePlayer = server.getPlayerManager().getPlayer(profile.getId());
+
+        if (fakePlayer == null) {
+            fakePlayer = server.getPlayerManager().createPlayer(profile, SyncedClientOptions.createDefault());
+            server.getPlayerManager().loadPlayerData(fakePlayer);
+        }
+
+        return fakePlayer;
+    }
 }

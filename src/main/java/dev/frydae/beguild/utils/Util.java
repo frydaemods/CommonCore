@@ -1,11 +1,8 @@
 package dev.frydae.beguild.utils;
 
 import com.google.errorprone.annotations.FormatString;
-import com.mojang.authlib.GameProfile;
 import dev.frydae.beguild.BeGuildCommon;
 import dev.frydae.beguild.data.Caches;
-import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.apache.commons.lang3.tuple.Pair;
@@ -117,19 +114,5 @@ public final class Util {
         } else {
             return text.substring(0, 1).toUpperCase() + text.substring(1);
         }
-    }
-
-    public static ServerPlayerEntity findPlayer(UUID uuid) {
-        MinecraftServer server = BeGuildCommon.getServer();
-        GameProfile profile = new GameProfile(uuid, "Player Name");
-
-        ServerPlayerEntity player = server.getPlayerManager().getPlayer(profile.getId());
-
-        if (player == null) {
-            player = server.getPlayerManager().createPlayer(profile, SyncedClientOptions.createDefault());
-            server.getPlayerManager().loadPlayerData(player);
-        }
-
-        return player;
     }
 }
