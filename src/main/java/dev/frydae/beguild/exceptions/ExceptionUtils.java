@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
 
+import java.util.Objects;
+
 public final class ExceptionUtils {
     private static final ThreadLocal<Class<?>> sourceClass = new ThreadLocal<>();
 
@@ -60,11 +62,33 @@ public final class ExceptionUtils {
         abort(message.formatted(args), level);
     }
 
+    public static void verifyTrue(boolean condition) {
+        setLoggerSource();
+
+        if (!condition) {
+            abort();
+        } else {
+            sourceClass.remove();
+        }
+    }
+
     public static void verifyTrue(boolean condition, String message, Object... args) {
         setLoggerSource();
 
         if (!condition) {
             abort(message, args);
+        } else {
+            sourceClass.remove();
+        }
+    }
+
+    public static void verifyFalse(boolean condition) {
+        setLoggerSource();
+
+        if (condition) {
+            abort();
+        } else {
+            sourceClass.remove();
         }
     }
 
@@ -73,7 +97,15 @@ public final class ExceptionUtils {
 
         if (condition) {
             abort(message, args);
+        } else {
+            sourceClass.remove();
         }
+    }
+
+    public static void verifyNull(@Nullable Object object) {
+        setLoggerSource();
+
+        verifyTrue(object == null);
     }
 
     public static void verifyNull(@Nullable Object object, String message, Object... args) {
@@ -91,25 +123,13 @@ public final class ExceptionUtils {
     public static void verifyNotEquals(@Nullable Object object, @Nullable Object other, String message, Object... args) {
         setLoggerSource();
 
-        if (object == null || other == null) {
-            boolean bothNull = object == null && other == null;
-
-            verifyFalse(bothNull, message, args);
-        } else {
-            verifyFalse(object.equals(other), message, args);
-        }
+        verifyTrue(!Objects.equals(object, other), message, args);
     }
 
-    public static void verifyEquals(Object object, Object other, String message, Object... args) {
+    public static void verifyEquals(@Nullable Object object, @Nullable Object other, String message, Object... args) {
         setLoggerSource();
 
-        if (object == null || other == null) {
-            boolean bothNull = object == null && other == null;
-
-            verifyTrue(bothNull, message, args);
-        } else {
-            verifyTrue(object.equals(other), message, args);
-        }
+        verifyTrue(Objects.equals(object, other), message, args);
     }
 
     private static void logException(LoggableException e) {
