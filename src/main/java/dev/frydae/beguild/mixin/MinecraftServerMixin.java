@@ -22,6 +22,7 @@ public class MinecraftServerMixin {
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;setupServer()Z"), method = "runServer")
     private void beforeSetupServer(CallbackInfo info) {
+        ServerLifecycleEvents.EARLIEST_SERVER_STARTING.invoker().onServerStarting((MinecraftServer) (Object) this);
         ServerLifecycleEvents.PRE_SERVER_STARTING.invoker().onServerStarting((MinecraftServer) (Object) this);
         ServerLifecycleEvents.SERVER_STARTING.invoker().onServerStarting((MinecraftServer) (Object) this);
         ServerLifecycleEvents.POST_SERVER_STARTING.invoker().onServerStarting((MinecraftServer) (Object) this);

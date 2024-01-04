@@ -75,9 +75,12 @@ public class BeGuildCommon extends BeGuildMod {
     }
 
     @Override
-    public void onStarting(MinecraftServer server) {
+    public void earliestStarting(MinecraftServer server) {
         BeGuildCommon.server = server;
+    }
 
+    @Override
+    public void onStarting(MinecraftServer server) {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server1) -> {
             UserManager.addOrUpdatePlayer(handler.getPlayer());
         });

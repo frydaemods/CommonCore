@@ -16,6 +16,7 @@ public class BeGuildMod implements DedicatedServerModInitializer {
         this.registerCommands(FabricCommandManager.getSingleton().getCommandCompletions(), FabricCommandManager.getSingleton().getCommandContexts(), FabricCommandManager.getSingleton().getCommandConditions());
         FabricCommandManager.registerCommands();
 
+        ServerLifecycleEvents.EARLIEST_SERVER_STARTING.register(this::earliestStarting);
         ServerLifecycleEvents.PRE_SERVER_STARTING.register(this::preStarting);
         ServerLifecycleEvents.SERVER_STARTING.register(this::onStarting);
         ServerLifecycleEvents.POST_SERVER_STARTING.register(this::postStarting);
@@ -35,6 +36,8 @@ public class BeGuildMod implements DedicatedServerModInitializer {
 
     public void onInitialize() {}
     public void registerCommands(FabricCommandCompletions commandCompletions, FabricCommandContexts commandContexts, FabricCommandConditions commandConditions) {}
+
+    public void earliestStarting(MinecraftServer server) {}
 
     public void preStarting(MinecraftServer server) {}
     public void onStarting(MinecraftServer server) {}

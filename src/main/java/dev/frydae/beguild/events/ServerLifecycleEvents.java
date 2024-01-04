@@ -8,6 +8,11 @@ public final class ServerLifecycleEvents {
     private ServerLifecycleEvents() {
     }
 
+    public static final Event<ServerStarting> EARLIEST_SERVER_STARTING = EventFactory.createArrayBacked(ServerStarting.class, callbacks -> server -> {
+        for (ServerStarting callback : callbacks) {
+            callback.onServerStarting(server);
+        }
+    });
     public static final Event<ServerStarting> PRE_SERVER_STARTING = EventFactory.createArrayBacked(ServerStarting.class, callbacks -> server -> {
         for (ServerStarting callback : callbacks) {
             callback.onServerStarting(server);
