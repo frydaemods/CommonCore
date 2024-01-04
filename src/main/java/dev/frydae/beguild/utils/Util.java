@@ -1,5 +1,6 @@
 package dev.frydae.beguild.utils;
 
+import com.google.common.collect.Table;
 import com.google.errorprone.annotations.FormatString;
 import dev.frydae.beguild.BeGuildCommon;
 import dev.frydae.beguild.data.Caches;
@@ -11,6 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
+
+import static dev.frydae.beguild.exceptions.ExceptionUtils.verifyFalse;
+import static dev.frydae.beguild.exceptions.ExceptionUtils.verifyTrue;
 
 public final class Util {
     /**
@@ -114,5 +118,14 @@ public final class Util {
         } else {
             return text.substring(0, 1).toUpperCase() + text.substring(1);
         }
+    }
+
+    public static <R, C, V> void tableRelocate(Table<R, C, V> table, R row, C currentColumn, C newColumn) {
+        verifyFalse(table.contains(row, newColumn), "Cannot relocate %s to %s because it already exists", currentColumn, newColumn);
+        verifyTrue(table.contains(row, currentColumn), "Cannot relocate %s to %s because it does not exist", currentColumn, newColumn);
+
+        V value = table.get(row, currentColumn);
+        table.put(row, newColumn, value);
+        table.remove(row, currentColumn);
     }
 }
