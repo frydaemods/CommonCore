@@ -10,11 +10,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter @Setter
 @RequiredArgsConstructor
 public class RegisteredUser {
+    public static final Integer SERVER_OWNER_ID = 0;
+
     private Integer userId;
     private String name;
     private final UUID uuid;
@@ -45,5 +48,9 @@ public class RegisteredUser {
         }
 
         return fakePlayer;
+    }
+
+    public boolean isServerOwner() {
+        return Objects.equals(userId, SERVER_OWNER_ID);
     }
 }

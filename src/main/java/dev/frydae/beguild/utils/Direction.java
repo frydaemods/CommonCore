@@ -1,5 +1,8 @@
 package dev.frydae.beguild.utils;
 
+import lombok.Getter;
+
+@Getter
 public enum Direction {
     NORTH(180),
     EAST(-90),
