@@ -1,6 +1,7 @@
 package dev.frydae.beguild.exceptions;
 
 
+import dev.frydae.beguild.utils.Color;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -16,6 +17,8 @@ public final class ExceptionUtils {
         if (sourceClass.get() == null) {
             sourceClass.set(ExceptionUtils.class);
         }
+
+        new Color(1, 1, 1);
 
         return LoggerFactory.getLogger(sourceClass.get());
     }
@@ -103,7 +106,7 @@ public final class ExceptionUtils {
     }
     // endregion
 
-    // region Verification Methods
+    // region Boolean Verification Methods
     /**
      * Verifies that a condition is true.
      * <p>
@@ -175,7 +178,9 @@ public final class ExceptionUtils {
             sourceClass.remove();
         }
     }
+    // endregion
 
+    // region Nullability Verification Methods
     /**
      * Verifies that an object is null.
      * <p>
@@ -231,7 +236,9 @@ public final class ExceptionUtils {
 
         verifyTrue(object != null, message, args);
     }
+    // endregion
 
+    // region Equality Verification Methods
     /**
      * Verifies that two objects are equal.
      * <p>
@@ -290,6 +297,946 @@ public final class ExceptionUtils {
         setLoggerSource();
 
         verifyTrue(Objects.equals(object, other), message, args);
+    }
+    // endregion
+
+    // region Threshold Verification Methods
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtLeast(Integer number, Integer threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtLeast(Integer number, Integer threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtLeast(Double number, Double threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtLeast(Double number, Double threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtLeast(Long number, Long threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtLeast(Long number, Long threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtLeast(Float number, Float threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtLeast(Float number, Float threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtLeast(Short number, Short threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtLeast(Short number, Short threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtLeast(Byte number, Byte threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold);
+    }
+
+    /**
+     * Verifies that a number is greater than or equal to a threshold.
+     * <p>
+     * If the number is less than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtLeast(Byte number, Byte threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number >= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtMost(Integer number, Integer threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtMost(Integer number, Integer threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtMost(Double number, Double threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtMost(Double number, Double threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtMost(Long number, Long threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtMost(Long number, Long threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtMost(Float number, Float threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtMost(Float number, Float threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtMost(Short number, Short threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtMost(Short number, Short threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold, message, args);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     */
+    public static void verifyAtMost(Byte number, Byte threshold) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold);
+    }
+
+    /**
+     * Verifies that a number is less than or equal to a threshold.
+     * <p>
+     * If the number is greater than the threshold, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param threshold the threshold
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyAtMost(Byte number, Byte threshold, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(threshold, "threshold cannot be null");
+
+        verifyTrue(number <= threshold, message, args);
+    }
+    // endregion
+
+    // region Range Verification Methods
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyBetween(Integer number, Integer min, Integer max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min);
+        verifyAtMost(number, max);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyBetween(Integer number, Integer min, Integer max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min, message, args);
+        verifyAtMost(number, max, message, args);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyBetween(Double number, Double min, Double max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min);
+        verifyAtMost(number, max);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyBetween(Double number, Double min, Double max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min, message, args);
+        verifyAtMost(number, max, message, args);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyBetween(Long number, Long min, Long max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min);
+        verifyAtMost(number, max);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyBetween(Long number, Long min, Long max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min, message, args);
+        verifyAtMost(number, max, message, args);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyBetween(Float number, Float min, Float max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min);
+        verifyAtMost(number, max);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyBetween(Float number, Float min, Float max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min, message, args);
+        verifyAtMost(number, max, message, args);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyBetween(Short number, Short min, Short max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min);
+        verifyAtMost(number, max);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyBetween(Short number, Short min, Short max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min, message, args);
+        verifyAtMost(number, max, message, args);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyBetween(Byte number, Byte min, Byte max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min);
+        verifyAtMost(number, max);
+    }
+
+    /**
+     * Verifies that a number is between two other numbers.
+     * <p>
+     * If the number is not between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyBetween(Byte number, Byte min, Byte max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyAtLeast(number, min, message, args);
+        verifyAtMost(number, max, message, args);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyNotBetween(Integer number, Integer min, Integer max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min);
+        verifyTrue(number > max);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyNotBetween(Integer number, Integer min, Integer max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min, message, args);
+        verifyTrue(number > max, message, args);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyNotBetween(Double number, Double min, Double max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min);
+        verifyTrue(number > max);
+    }
+
+/**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyNotBetween(Double number, Double min, Double max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min, message, args);
+        verifyTrue(number > max, message, args);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyNotBetween(Long number, Long min, Long max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min);
+        verifyTrue(number > max);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyNotBetween(Long number, Long min, Long max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min, message, args);
+        verifyTrue(number > max, message, args);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyNotBetween(Float number, Float min, Float max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min);
+        verifyTrue(number > max);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyNotBetween(Float number, Float min, Float max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min, message, args);
+        verifyTrue(number > max, message, args);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyNotBetween(Short number, Short min, Short max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min);
+        verifyTrue(number > max);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyNotBetween(Short number, Short min, Short max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min, message, args);
+        verifyTrue(number > max, message, args);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     */
+    public static void verifyNotBetween(Byte number, Byte min, Byte max) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min);
+        verifyTrue(number > max);
+    }
+
+    /**
+     * Verifies that a number is not between two other numbers.
+     * <p>
+     * If the number is between the two other numbers, the current thread is aborted, and a message is logged.
+     *
+     * @param number the number to verify
+     * @param min the minimum number
+     * @param max the maximum number
+     * @param message the message to log
+     * @param args the arguments to format the message with
+     */
+    public static void verifyNotBetween(Byte number, Byte min, Byte max, String message, Object... args) {
+        setLoggerSource();
+
+        verifyNonNull(number, "number cannot be null");
+        verifyNonNull(min, "min cannot be null");
+        verifyNonNull(max, "max cannot be null");
+
+        verifyTrue(number < min, message, args);
+        verifyTrue(number > max, message, args);
     }
     // endregion
 
