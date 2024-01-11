@@ -47,4 +47,22 @@ public class ExceptionUtilsTest {
         assertThrows(LoggableException.class, () -> ExceptionUtils.verifyEquals(null, 1, "Test"));
         assertThrows(LoggableException.class, () -> ExceptionUtils.verifyEquals(1, null, "Test"));
     }
+
+    @Test
+    public void testVerifyBetween() {
+        assertDoesNotThrow(() -> ExceptionUtils.verifyBetween(1, 0, 2, "Test"));
+        assertDoesNotThrow(() -> ExceptionUtils.verifyBetween(1, 1, 2, "Test"));
+        assertDoesNotThrow(() -> ExceptionUtils.verifyBetween(1, 0, 1, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyBetween(1, 2, 3, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyBetween(1, 0, 0, "Test"));
+    }
+
+    @Test
+    public void testVerifyNotBetween() {
+        assertDoesNotThrow(() -> ExceptionUtils.verifyNotBetween(1, 2, 3, "Test"));
+        assertDoesNotThrow(() -> ExceptionUtils.verifyNotBetween(1, 0, 0, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyNotBetween(1, 0, 2, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyNotBetween(1, 1, 2, "Test"));
+        assertThrows(LoggableException.class, () -> ExceptionUtils.verifyNotBetween(1, 0, 1, "Test"));
+    }
 }
