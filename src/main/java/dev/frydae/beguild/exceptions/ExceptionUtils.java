@@ -1003,8 +1003,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min);
-        verifyTrue(number > max);
+        verifyTrue(number < min || number > max);
     }
 
     /**
@@ -1025,8 +1024,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min, message, args);
-        verifyTrue(number > max, message, args);
+        verifyTrue(number < min || number > max, message, args);
     }
 
     /**
@@ -1045,8 +1043,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min);
-        verifyTrue(number > max);
+        verifyTrue(number < min || number > max);
     }
 
 /**
@@ -1067,8 +1064,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min, message, args);
-        verifyTrue(number > max, message, args);
+        verifyTrue(number < min || number > max, message, args);
     }
 
     /**
@@ -1087,8 +1083,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min);
-        verifyTrue(number > max);
+        verifyTrue(number < min || number > max);
     }
 
     /**
@@ -1109,8 +1104,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min, message, args);
-        verifyTrue(number > max, message, args);
+        verifyTrue(number < min || number > max, message, args);
     }
 
     /**
@@ -1129,8 +1123,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min);
-        verifyTrue(number > max);
+        verifyTrue(number < min || number > max);
     }
 
     /**
@@ -1151,8 +1144,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min, message, args);
-        verifyTrue(number > max, message, args);
+        verifyTrue(number < min || number > max, message, args);
     }
 
     /**
@@ -1171,8 +1163,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min);
-        verifyTrue(number > max);
+        verifyTrue(number < min || number > max);
     }
 
     /**
@@ -1193,8 +1184,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min, message, args);
-        verifyTrue(number > max, message, args);
+        verifyTrue(number < min || number > max, message, args);
     }
 
     /**
@@ -1213,8 +1203,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min);
-        verifyTrue(number > max);
+        verifyTrue(number < min || number > max);
     }
 
     /**
@@ -1235,8 +1224,7 @@ public final class ExceptionUtils {
         verifyNonNull(min, "min cannot be null");
         verifyNonNull(max, "max cannot be null");
 
-        verifyTrue(number < min, message, args);
-        verifyTrue(number > max, message, args);
+        verifyTrue(number < min || number > max, message, args);
     }
     // endregion
 
