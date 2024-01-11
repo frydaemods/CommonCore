@@ -1,7 +1,6 @@
 package dev.frydae.beguild.exceptions;
 
 
-import dev.frydae.beguild.utils.Color;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -17,8 +16,6 @@ public final class ExceptionUtils {
         if (sourceClass.get() == null) {
             sourceClass.set(ExceptionUtils.class);
         }
-
-        new Color(1, 1, 1);
 
         return LoggerFactory.getLogger(sourceClass.get());
     }
