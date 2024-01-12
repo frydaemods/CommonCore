@@ -4,7 +4,6 @@ import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import com.mojang.logging.LogUtils;
 import dev.frydae.beguild.loader.BeGuildMod;
-import dev.frydae.beguild.systems.BlockDataPersistence;
 import dev.frydae.beguild.user.RegisteredUser;
 import dev.frydae.beguild.user.UserManager;
 import dev.frydae.beguild.utils.taskchain.FabricTaskChainFactory;
@@ -94,7 +93,6 @@ public class BeGuildCommon extends BeGuildMod {
     @Override
     public void onStarted(MinecraftServer server) {
         UserManager.get();
-        BlockDataPersistence.get();
     }
 
     @Override
