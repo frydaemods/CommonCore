@@ -7,15 +7,10 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "BlockMixin",
-    "ChunkGeneratorMixin",
     "EntityTrackerEntryMixin",
     "MinecraftServerMixin",
     "PlayerEntityMixin",
     "PlayerInventoryMixin",
-    "ServerPlayNetworkHandlerMixin",
-    "StructureStartMixin",
-    "accessors.JigsawStructureAccessor",
-    "accessors.PlayerManagerAccessor"
+    "ServerPlayNetworkHandlerMixin"
   ]
 }
