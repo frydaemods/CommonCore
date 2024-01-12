@@ -13,7 +13,6 @@
     "MinecraftServerMixin",
     "PlayerEntityMixin",
     "PlayerInventoryMixin",
-    "PlayerManagerMixin",
     "ServerPlayNetworkHandlerMixin",
     "StructureStartMixin",
     "accessors.JigsawStructureAccessor",
