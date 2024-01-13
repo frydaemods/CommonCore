@@ -4,6 +4,7 @@ import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import com.mojang.logging.LogUtils;
 import dev.frydae.beguild.loader.BeGuildMod;
+import dev.frydae.beguild.screens.BeGuildScreenHandlerType;
 import dev.frydae.beguild.user.RegisteredUser;
 import dev.frydae.beguild.user.UserManager;
 import dev.frydae.beguild.utils.taskchain.FabricTaskChainFactory;
@@ -71,6 +72,8 @@ public class BeGuildCommon extends BeGuildMod {
     @Override
     public void onInitialize() {
         scheduler = Executors.newScheduledThreadPool(1);
+
+        BeGuildScreenHandlerType.get(1, 9);
     }
 
     @Override

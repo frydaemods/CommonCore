@@ -31,6 +31,10 @@ dependencies {
     modImplementation("xyz.nucleoid:server-translations-api:2.2.0+1.20.3-rc1")?.let { include(it) }
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/beguild-common.accesswidener")
+}
+
 tasks {
     processResources {
         inputs.property("version", project.version)

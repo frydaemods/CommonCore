@@ -19,6 +19,7 @@
       "dev.frydae.beguild.BeGuildCommon"
     ]
   },
+  "accessWidener": "beguild-common.accesswidener",
   "mixins": [
     "beguild-common.mixins.json"
   ],
