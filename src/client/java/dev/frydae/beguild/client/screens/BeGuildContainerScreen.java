@@ -30,16 +30,16 @@ public final class BeGuildContainerScreen extends UIBaseScreen<BeGuildContainerS
         this.columns = handler.getColumns();
 
         this.backgroundWidth = leftPiece.getWidth() + (columns * slotPiece.getWidth()) + rightPiece.getWidth();
-        this.backgroundHeight = upperPiece.getHeight() +
+        this.backgroundHeight = topPiece.getHeight() +
                 INVENTORY_TITLE_OFFSET +
                 (rows * slotPiece.getHeight()) +
                 PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS +
                 (3 * slotPiece.getHeight()) +
                 PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS +
                 slotPiece.getHeight() +
-                lowerPiece.getHeight();
+                bottomPiece.getHeight();
 
-        this.playerInventoryTitleY = upperPiece.getHeight() + INVENTORY_TITLE_OFFSET + (rows * slotPiece.getHeight()) + PLAYER_INVENTORY_TITLE_OFFSET;
+        this.playerInventoryTitleY = topPiece.getHeight() + INVENTORY_TITLE_OFFSET + (rows * slotPiece.getHeight()) + PLAYER_INVENTORY_TITLE_OFFSET;
         this.playerInventoryTitleX = leftPiece.getWidth() + ((columns - PLAYER_INVENTORY_COLUMNS) * PLAYER_INVENTORY_SLOT_OFFSET);
     }
 

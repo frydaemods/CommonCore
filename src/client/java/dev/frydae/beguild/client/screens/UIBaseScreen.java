@@ -12,12 +12,12 @@ import net.minecraft.util.Identifier;
 
 public abstract class UIBaseScreen<T extends ScreenHandler> extends HandledScreen<T> implements ScreenHandlerProvider<T> {
     ScreenTexturePiece fillerPiece;
-    ScreenTexturePiece upperLeftPiece;
-    ScreenTexturePiece upperRightPiece;
-    ScreenTexturePiece lowerLeftPiece;
-    ScreenTexturePiece lowerRightPiece;
-    ScreenTexturePiece upperPiece;
-    ScreenTexturePiece lowerPiece;
+    ScreenTexturePiece topLeftPiece;
+    ScreenTexturePiece topRightPiece;
+    ScreenTexturePiece bottomLeftPiece;
+    ScreenTexturePiece bottomRightPiece;
+    ScreenTexturePiece topPiece;
+    ScreenTexturePiece bottomPiece;
     ScreenTexturePiece leftPiece;
     ScreenTexturePiece rightPiece;
 
@@ -29,12 +29,12 @@ public abstract class UIBaseScreen<T extends ScreenHandler> extends HandledScree
 
     private void setupPieces() {
         fillerPiece = new ScreenTexturePiece(loadUIPiece("filler"), 7, 7);
-        upperLeftPiece = new ScreenTexturePiece(loadUIPiece("upper_corner_left"), 7, 7);
-        upperRightPiece = new ScreenTexturePiece(loadUIPiece("upper_corner_right"), 7, 7);
-        lowerLeftPiece = new ScreenTexturePiece(loadUIPiece("lower_corner_left"), 7, 7);
-        lowerRightPiece = new ScreenTexturePiece(loadUIPiece("lower_corner_right"), 7, 7);
-        upperPiece = new ScreenTexturePiece(loadUIPiece("upper"), 7, 7);
-        lowerPiece = new ScreenTexturePiece(loadUIPiece("lower"), 7, 7);
+        topLeftPiece = new ScreenTexturePiece(loadUIPiece("top_left"), 7, 7);
+        topRightPiece = new ScreenTexturePiece(loadUIPiece("top_right"), 7, 7);
+        bottomLeftPiece = new ScreenTexturePiece(loadUIPiece("bottom_left"), 7, 7);
+        bottomRightPiece = new ScreenTexturePiece(loadUIPiece("bottom_right"), 7, 7);
+        topPiece = new ScreenTexturePiece(loadUIPiece("top"), 7, 7);
+        bottomPiece = new ScreenTexturePiece(loadUIPiece("bottom"), 7, 7);
         leftPiece = new ScreenTexturePiece(loadUIPiece("left"), 7, 7);
         rightPiece = new ScreenTexturePiece(loadUIPiece("right"), 7, 7);
 
@@ -57,53 +57,53 @@ public abstract class UIBaseScreen<T extends ScreenHandler> extends HandledScree
 
     protected void drawBase(DrawContext context, int width, int height) {
         // region Draw Corners
-        upperLeftPiece.withInitial(context, x, y)
+        topLeftPiece.withInitial(context, x, y)
                 .drawTexture();
 
-        upperRightPiece.withInitial(context, x, y)
-                .xOffset(width - upperRightPiece.getWidth())
+        topRightPiece.withInitial(context, x, y)
+                .xOffset(width - topRightPiece.getWidth())
                 .drawTexture();
 
-        lowerLeftPiece.withInitial(context, x, y)
-                .yOffset(height - lowerLeftPiece.getHeight())
+        bottomLeftPiece.withInitial(context, x, y)
+                .yOffset(height - bottomLeftPiece.getHeight())
                 .drawTexture();
 
-        lowerRightPiece.withInitial(context, x, y)
-                .xOffset(width - lowerRightPiece.getWidth())
-                .yOffset(height - lowerRightPiece.getHeight())
+        bottomRightPiece.withInitial(context, x, y)
+                .xOffset(width - bottomRightPiece.getWidth())
+                .yOffset(height - bottomRightPiece.getHeight())
                 .drawTexture();
         // endregion
 
         // region Draw Edges
-        upperPiece.withInitial(context, x, y)
-                .xOffset(upperLeftPiece.getWidth())
-                .setWidth(width - upperLeftPiece.getWidth() - upperRightPiece.getWidth())
+        topPiece.withInitial(context, x, y)
+                .xOffset(topLeftPiece.getWidth())
+                .setWidth(width - topLeftPiece.getWidth() - topRightPiece.getWidth())
                 .drawTexture();
 
-        lowerPiece.withInitial(context, x, y)
-                .xOffset(lowerLeftPiece.getWidth())
-                .yOffset(height - lowerPiece.getHeight())
-                .setWidth(width - lowerLeftPiece.getWidth() - lowerRightPiece.getWidth())
+        bottomPiece.withInitial(context, x, y)
+                .xOffset(bottomLeftPiece.getWidth())
+                .yOffset(height - bottomPiece.getHeight())
+                .setWidth(width - bottomLeftPiece.getWidth() - bottomRightPiece.getWidth())
                 .drawTexture();
 
         leftPiece.withInitial(context, x, y)
-                .yOffset(upperLeftPiece.getHeight())
-                .setHeight(height - upperLeftPiece.getHeight() - lowerLeftPiece.getHeight())
+                .yOffset(topLeftPiece.getHeight())
+                .setHeight(height - topLeftPiece.getHeight() - bottomLeftPiece.getHeight())
                 .drawTexture();
 
         rightPiece.withInitial(context, x, y)
                 .xOffset(width - rightPiece.getWidth())
-                .yOffset(upperRightPiece.getHeight())
-                .setHeight(height - upperRightPiece.getHeight() - lowerRightPiece.getHeight())
+                .yOffset(topRightPiece.getHeight())
+                .setHeight(height - topRightPiece.getHeight() - bottomRightPiece.getHeight())
                 .drawTexture();
         // endregion
 
         // region Draw Filler
         fillerPiece.withInitial(context, x, y)
                 .xOffset(leftPiece.getWidth())
-                .yOffset(upperPiece.getHeight())
+                .yOffset(topPiece.getHeight())
                 .setWidth(width - leftPiece.getWidth() - rightPiece.getWidth())
-                .setHeight(height - upperPiece.getHeight() - lowerPiece.getHeight())
+                .setHeight(height - topPiece.getHeight() - bottomPiece.getHeight())
                 .drawTexture();
         // endregion
     }
