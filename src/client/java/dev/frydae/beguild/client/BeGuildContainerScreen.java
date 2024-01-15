@@ -9,6 +9,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -88,7 +89,6 @@ public final class BeGuildContainerScreen extends HandledScreen<BeGuildContainer
 
         int internalXOffset = upperLeftPiece.getWidth();
         int internalWidth = columns * slotPiece.getWidth();
-        int inventoryWidth = PLAYER_INVENTORY_COLUMNS * slotPiece.getWidth();
 
         int containerSlotYOffset = upperPiece.getHeight();
         int middleFillerYOffset = containerSlotYOffset + (rows * slotPiece.getHeight());
@@ -97,17 +97,25 @@ public final class BeGuildContainerScreen extends HandledScreen<BeGuildContainer
         int hotbarYOffset = hotbarSeparatorYOffset + PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS;
         int bottomYOffset = hotbarYOffset + slotPiece.getHeight();
 
-        int inventorySlotOffset = (columns - PLAYER_INVENTORY_COLUMNS) * PLAYER_INVENTORY_SLOT_OFFSET;
+        fillerPiece.withInitial(context, x, y)
+                .xOffset(leftPiece.getWidth())
+                .yOffset(upperPiece.getHeight())
+                .setWidth(internalWidth)
+                .setHeight(bottomYOffset - upperPiece.getHeight())
+                .drawTexture();
 
-        // Draw top
+        for (Slot slot : handler.slots) {
+            slotPiece.withInitial(context, x, y)
+                    .xOffset(slot.x - 1)
+                    .yOffset(slot.y - 1)
+                    .drawTexture();
+        }
+
+        // Draw top left
         upperLeftPiece.withInitial(context, x, y)
                 .drawTexture();
 
-        upperPiece.withInitial(context, x, y)
-                .xOffset(upperLeftPiece.getWidth())
-                .repeatWidth(columns)
-                .drawTexture();
-
+        // Draw top right
         upperRightPiece.withInitial(context, x, y)
                 .xOffset(upperLeftPiece.getWidth())
                 .xOffset(columns * slotPiece.getWidth())
@@ -118,13 +126,6 @@ public final class BeGuildContainerScreen extends HandledScreen<BeGuildContainer
                 .yOffset(bottomYOffset)
                 .drawTexture();
 
-        // Draw bottom middle
-        lowerPiece.withInitial(context, x, y)
-                .xOffset(lowerLeftPiece.getWidth())
-                .yOffset(bottomYOffset)
-                .repeatWidth(columns)
-                .drawTexture();
-
         // Draw bottom right
         lowerRightPiece.withInitial(context, x, y)
                 .xOffset(lowerLeftPiece.getWidth())
@@ -132,75 +133,30 @@ public final class BeGuildContainerScreen extends HandledScreen<BeGuildContainer
                 .yOffset(bottomYOffset)
                 .drawTexture();
 
-        // Draw Container Slots
-        slotPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset)
-                .yOffset(containerSlotYOffset)
+        // Draw top
+        upperPiece.withInitial(context, x, y)
+                .xOffset(upperLeftPiece.getWidth())
                 .repeatWidth(columns)
-                .repeatHeight(rows)
                 .drawTexture();
 
-        // Draw Inventory Slots
-        slotPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset + inventorySlotOffset)
-                .yOffset(inventorySlotYOffset)
-                .repeatWidth(9)
-                .repeatHeight(3)
-                .drawTexture();
-
-        // Draw Hotbar Slots
-        slotPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset + inventorySlotOffset)
-                .yOffset(hotbarYOffset)
-                .repeatWidth(9)
+        // Draw bottom
+        lowerPiece.withInitial(context, x, y)
+                .xOffset(lowerLeftPiece.getWidth())
+                .yOffset(bottomYOffset)
+                .repeatWidth(columns)
                 .drawTexture();
 
         // Draw Left Side
         leftPiece.withInitial(context, x, y)
-                .yOffset(containerSlotYOffset)
-                .repeatHeight(rows + 4)
-                .addHeight(fillerPiece.getHeight())
-                .addHeight(PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS)
+                .yOffset(upperPiece.getHeight())
+                .setHeight(bottomYOffset - upperPiece.getHeight())
                 .drawTexture();
 
         // Draw Right Side
         rightPiece.withInitial(context, x, y)
                 .xOffset(internalXOffset + internalWidth)
-                .yOffset(containerSlotYOffset)
-                .repeatHeight(rows + 4)
-                .addHeight(fillerPiece.getHeight())
-                .addHeight(PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS)
-                .drawTexture();
-
-        // Draw Middle Filler
-        fillerPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset)
-                .yOffset(middleFillerYOffset)
-                .repeatWidth(columns)
-                .drawTexture();
-
-        // Draw Hotbar Separator
-        fillerPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset + inventorySlotOffset)
-                .yOffset(hotbarSeparatorYOffset)
-                .repeatWidth(9)
-                .setHeight(PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS)
-                .drawTexture();
-
-        // Draw Left Inventory Side Filler
-        fillerPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset)
-                .yOffset(inventorySlotYOffset)
-                .setWidth(inventorySlotOffset)
-                .setHeight(bottomYOffset - inventorySlotYOffset)
-                .drawTexture();
-
-        // Draw Right Inventory Side Filler
-        fillerPiece.withInitial(context, x, y)
-                .xOffset(internalXOffset + inventorySlotOffset + inventoryWidth)
-                .yOffset(inventorySlotYOffset)
-                .setWidth(inventorySlotOffset)
-                .setHeight(bottomYOffset - inventorySlotYOffset)
+                .yOffset(upperPiece.getHeight())
+                .setHeight(bottomYOffset - upperPiece.getHeight())
                 .drawTexture();
     }
 }
