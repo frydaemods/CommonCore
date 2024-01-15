@@ -80,8 +80,6 @@ public final class BeGuildContainerScreen extends HandledScreen<BeGuildContainer
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-//        setupPieces();
-
         int totalWidth = leftPiece.getWidth() + (columns * slotPiece.getWidth()) + rightPiece.getWidth();
         int totalHeight = upperPiece.getHeight() + (rows * slotPiece.getHeight()) + fillerPiece.getHeight() + (3 * slotPiece.getHeight()) + PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS + slotPiece.getHeight() + lowerPiece.getHeight();
 
@@ -92,7 +90,7 @@ public final class BeGuildContainerScreen extends HandledScreen<BeGuildContainer
         int internalWidth = columns * slotPiece.getWidth();
         int inventoryWidth = PLAYER_INVENTORY_COLUMNS * slotPiece.getWidth();
 
-        int containerSlotYOffset = UI_PIECES[6].getHeight();
+        int containerSlotYOffset = upperPiece.getHeight();
         int middleFillerYOffset = containerSlotYOffset + (rows * slotPiece.getHeight());
         int inventorySlotYOffset = middleFillerYOffset + fillerPiece.getHeight();
         int hotbarSeparatorYOffset = inventorySlotYOffset + (3 * slotPiece.getHeight());
