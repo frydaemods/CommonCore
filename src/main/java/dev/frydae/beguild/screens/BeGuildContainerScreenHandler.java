@@ -12,8 +12,10 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
-import static dev.frydae.beguild.data.Constants.INVENTORY_SLOT_X_OFFSET_PIXELS;
-import static dev.frydae.beguild.data.Constants.getPlayerInventoryOffsetPixels;
+import static dev.frydae.beguild.data.Constants.INVENTORY_BORDER_PIXELS;
+import static dev.frydae.beguild.data.Constants.INVENTORY_TITLE_OFFSET;
+import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS;
+import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS;
 
 @Getter
 public class BeGuildContainerScreenHandler extends ScreenHandler {
@@ -53,34 +55,37 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
 
         inventory.onOpen(playerInventory.player);
 
-        int inventoryPixelOffset = (columns - PLAYER_INVENTORY_COLUMNS) * PLAYER_INVENTORY_SLOT_OFFSET;
-
-        // Calculate the offset for the player inventory based on the number of container rows
-        int playerInventoryOffset = (this.rows - 4) * 18 + 1;
+        int xOffset = 1 + INVENTORY_BORDER_PIXELS;
+        int yOffset = 1 + INVENTORY_BORDER_PIXELS + INVENTORY_TITLE_OFFSET;
 
         for (int row = 0; row < this.rows; row++) {
             for (int column = 0; column < this.columns; column++) {
                 int index = column + (row * columns);
-                int x = INVENTORY_SLOT_X_OFFSET_PIXELS + (column * SLOT_PIXEL_SIZE);
-                int y = SLOT_Y_OFFSET_PIXELS + (row * SLOT_PIXEL_SIZE);
+                int x = xOffset + (column * SLOT_PIXEL_SIZE);
+                int y = yOffset + (row * SLOT_PIXEL_SIZE);
 
                 addSlot(new Slot(inventory, index, x, y));
             }
         }
 
+        xOffset += (columns - PLAYER_INVENTORY_COLUMNS) * (SLOT_PIXEL_SIZE / 2);
+        yOffset += (rows * SLOT_PIXEL_SIZE) + PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS;
+
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < PLAYER_INVENTORY_COLUMNS; column++) {
                 int index = column + (row * PLAYER_INVENTORY_COLUMNS) + PLAYER_INVENTORY_SLOT_OFFSET;
-                int x = INVENTORY_SLOT_X_OFFSET_PIXELS + getPlayerInventoryOffsetPixels(columns) + (column * SLOT_PIXEL_SIZE);
-                int y = 103 + (row * SLOT_PIXEL_SIZE) + playerInventoryOffset;
+                int x = xOffset + (column * SLOT_PIXEL_SIZE);
+                int y = yOffset + (row * SLOT_PIXEL_SIZE);
 
                 addSlot(new Slot(playerInventory, index, x, y));
             }
         }
 
-        for (int slot = 0; slot < 9; ++slot) {
-            int x = INVENTORY_SLOT_X_OFFSET_PIXELS + inventoryPixelOffset + (slot * SLOT_PIXEL_SIZE);
-            int y = 161 + playerInventoryOffset;
+        yOffset += (3 * SLOT_PIXEL_SIZE) + PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS;
+
+        for (int slot = 0; slot < 9; slot++) {
+            int x = xOffset + (slot * SLOT_PIXEL_SIZE);
+            int y = yOffset;
 
             addSlot(new Slot(playerInventory, slot, x, y));
         }

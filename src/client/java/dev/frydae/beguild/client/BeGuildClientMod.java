@@ -1,5 +1,6 @@
 package dev.frydae.beguild.client;
 
+import dev.frydae.beguild.client.screens.BeGuildContainerScreen;
 import dev.frydae.beguild.screens.BeGuildContainerScreenHandler;
 import dev.frydae.beguild.screens.BeGuildScreenHandlerType;
 import net.fabricmc.api.ClientModInitializer;
