@@ -1,6 +1,5 @@
 package dev.frydae.beguild.screens;
 
-import com.google.common.collect.Maps;
 import lombok.Getter;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,28 +12,17 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
-import java.util.Map;
-
-import static dev.frydae.beguild.screens.BeGuildScreens.SLOT_PIXEL_SIZE;
+import static dev.frydae.beguild.data.Constants.INVENTORY_SLOT_X_OFFSET_PIXELS;
+import static dev.frydae.beguild.data.Constants.getPlayerInventoryOffsetPixels;
 
 @Getter
 public class BeGuildContainerScreenHandler extends ScreenHandler {
     private static final int SLOT_X_OFFSET_PIXELS = 12;
     private static final int SLOT_Y_OFFSET_PIXELS = 18;
+    private static final int SLOT_PIXEL_SIZE = 18;
 
-    private static final Map<Integer, Integer> inventoryPixelOffsets = Maps.newHashMap();
     private static final int PLAYER_INVENTORY_SLOT_OFFSET = 9;
     private static final int PLAYER_INVENTORY_COLUMNS = 9;
-
-    static {
-        inventoryPixelOffsets.put(9, 0);
-        inventoryPixelOffsets.put(10, 9);
-        inventoryPixelOffsets.put(11, 18);
-        inventoryPixelOffsets.put(12, 27);
-        inventoryPixelOffsets.put(13, 36);
-        inventoryPixelOffsets.put(14, 45);
-        inventoryPixelOffsets.put(15, 54);
-    }
 
     private final Inventory inventory;
     private final int rows;
@@ -65,13 +53,15 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
 
         inventory.onOpen(playerInventory.player);
 
+        int inventoryPixelOffset = (columns - PLAYER_INVENTORY_COLUMNS) * PLAYER_INVENTORY_SLOT_OFFSET;
+
         // Calculate the offset for the player inventory based on the number of container rows
-        int playerInventoryOffset = (this.rows - 4) * 18;
+        int playerInventoryOffset = (this.rows - 4) * 18 + 1;
 
         for (int row = 0; row < this.rows; row++) {
             for (int column = 0; column < this.columns; column++) {
                 int index = column + (row * columns);
-                int x = SLOT_X_OFFSET_PIXELS + (column * SLOT_PIXEL_SIZE);
+                int x = INVENTORY_SLOT_X_OFFSET_PIXELS + (column * SLOT_PIXEL_SIZE);
                 int y = SLOT_Y_OFFSET_PIXELS + (row * SLOT_PIXEL_SIZE);
 
                 addSlot(new Slot(inventory, index, x, y));
@@ -81,7 +71,7 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < PLAYER_INVENTORY_COLUMNS; column++) {
                 int index = column + (row * PLAYER_INVENTORY_COLUMNS) + PLAYER_INVENTORY_SLOT_OFFSET;
-                int x = SLOT_X_OFFSET_PIXELS + inventoryPixelOffsets.get(columns) + (column * SLOT_PIXEL_SIZE);
+                int x = INVENTORY_SLOT_X_OFFSET_PIXELS + getPlayerInventoryOffsetPixels(columns) + (column * SLOT_PIXEL_SIZE);
                 int y = 103 + (row * SLOT_PIXEL_SIZE) + playerInventoryOffset;
 
                 addSlot(new Slot(playerInventory, index, x, y));
@@ -89,11 +79,15 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
         }
 
         for (int slot = 0; slot < 9; ++slot) {
-            int x = SLOT_X_OFFSET_PIXELS + inventoryPixelOffsets.get(columns) + (slot * SLOT_PIXEL_SIZE);
+            int x = INVENTORY_SLOT_X_OFFSET_PIXELS + inventoryPixelOffset + (slot * SLOT_PIXEL_SIZE);
             int y = 161 + playerInventoryOffset;
 
             addSlot(new Slot(playerInventory, slot, x, y));
         }
+    }
+
+    public static BeGuildContainerScreenHandler create(int rows, int columns, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+        return new BeGuildContainerScreenHandler(BeGuildScreenHandlerType.get(rows, columns), syncId, playerInventory, rows, columns, buf);
     }
 
     /**

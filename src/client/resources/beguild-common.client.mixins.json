@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.frydae.beguild.client.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "HandledScreenMixin"
+  ],
+  "client": [
+    "AnvilScreenMixin"
+  ]
+}

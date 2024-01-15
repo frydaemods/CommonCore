@@ -32,7 +32,16 @@ dependencies {
 }
 
 loom {
+    splitEnvironmentSourceSets()
+
     accessWidenerPath = file("src/main/resources/beguild-common.accesswidener")
+
+    mods {
+        register("beguild-common") {
+            sourceSet("main")
+            sourceSet("client")
+        }
+    }
 }
 
 tasks {

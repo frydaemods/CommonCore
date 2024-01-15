@@ -73,7 +73,8 @@ public class BeGuildCommon extends BeGuildMod {
     public void onInitialize() {
         scheduler = Executors.newScheduledThreadPool(1);
 
-        BeGuildScreenHandlerType.get(1, 9);
+        BeGuildScreenHandlerType.registerHandlerTypes();
+//        BeGuildScreenHandlerType.get(1, 1);
     }
 
     @Override

@@ -17,11 +17,18 @@
   "entrypoints": {
     "server": [
       "dev.frydae.beguild.BeGuildCommon"
+    ],
+    "client": [
+      "dev.frydae.beguild.client.BeGuildClientMod"
     ]
   },
   "accessWidener": "beguild-common.accesswidener",
   "mixins": [
-    "beguild-common.mixins.json"
+    "beguild-common.main.mixins.json",
+    {
+      "config": "beguild-common.client.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
     "fabricloader": ">=0.14.21",
