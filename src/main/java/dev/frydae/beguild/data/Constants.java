@@ -4,8 +4,8 @@ public final class Constants {
     private Constants() {}
 
     public static final int INVENTORY_TITLE_OFFSET = 10;
-    public static final int INVENTORY_BORDER_PIXELS = 7;
-    public static final int INVENTORY_SLOT_X_OFFSET_PIXELS = INVENTORY_BORDER_PIXELS + 1;
+    public static final int INVENTORY_BORDER_PIXELS = 16;
+    public static final int INVENTORY_SLOT_OFFSET = 7;
 
     public static final int PLAYER_INVENTORY_TITLE_OFFSET = 3;
     public static final int PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS = 14;

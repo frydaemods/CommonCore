@@ -6,8 +6,8 @@ import net.minecraft.util.Identifier;
 
 public final class ScreenTexturePiece {
     @Getter private final Identifier texture;
-    @Getter private final int width;
-    @Getter private final int height;
+    @Getter private final int textureWidth;
+    @Getter private final int textureHeight;
 
     private DrawContext context;
     private int startX = 0;
@@ -15,20 +15,36 @@ public final class ScreenTexturePiece {
     private int xOffset = 0;
     private int yOffset = 0;
 
-    private int drawWidth;
-    private int drawHeight;
+    private final int u;
+    private final int v;
+
+    @Getter private final int regionWidth;
+    @Getter private final int regionHeight;
+
+    @Getter private int width;
+    @Getter private int height;
 
     public ScreenTexturePiece(Identifier texture, int width, int height) {
-        this.texture = texture;
-        this.width = width;
-        this.height = height;
+        this(texture, width, height, width, height, 0, 0);
+    }
 
-        this.drawWidth = width;
-        this.drawHeight = height;
+    public ScreenTexturePiece(Identifier texture, int textureWidth, int textureHeight, int regionWidth, int regionHeight, int u, int v) {
+        this.texture = texture;
+        this.textureWidth = textureWidth;
+        this.textureHeight = textureHeight;
+
+        this.regionWidth = regionWidth;
+        this.regionHeight = regionHeight;
+
+        this.width = regionWidth;
+        this.height = regionHeight;
+
+        this.u = u;
+        this.v = v;
     }
 
     public ScreenTexturePiece withInitial(DrawContext context, int x, int y) {
-        ScreenTexturePiece clone = new ScreenTexturePiece(texture, width, height);
+        ScreenTexturePiece clone = new ScreenTexturePiece(texture, textureWidth, textureHeight, width, height, u, v);
 
         clone.context = context;
         clone.startX = x;
@@ -50,42 +66,42 @@ public final class ScreenTexturePiece {
     }
 
     public ScreenTexturePiece repeatWidth(int times) {
-        this.drawWidth = width * times;
+        this.width = textureWidth * times;
 
         return this;
     }
 
     public ScreenTexturePiece addWidth(int width) {
-        this.drawWidth += width;
+        this.width += width;
 
         return this;
     }
 
     public ScreenTexturePiece setWidth(int width) {
-        this.drawWidth = width;
+        this.width = width;
 
         return this;
     }
 
     public ScreenTexturePiece repeatHeight(int times) {
-        this.drawHeight = height * times;
+        this.height = textureHeight * times;
 
         return this;
     }
 
     public ScreenTexturePiece addHeight(int height) {
-        this.drawHeight += height;
+        this.height += height;
 
         return this;
     }
 
     public ScreenTexturePiece setHeight(int height) {
-        this.drawHeight = height;
+        this.height = height;
 
         return this;
     }
 
     public void drawTexture() {
-        context.drawTexture(texture, startX + xOffset, startY + yOffset, 0, 0, drawWidth, drawHeight, width, height);
+        context.drawTexture(texture, startX + xOffset, startY + yOffset, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
     }
 }

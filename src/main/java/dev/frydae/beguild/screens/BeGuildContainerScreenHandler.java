@@ -12,7 +12,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
-import static dev.frydae.beguild.data.Constants.INVENTORY_BORDER_PIXELS;
+import static dev.frydae.beguild.data.Constants.INVENTORY_SLOT_OFFSET;
 import static dev.frydae.beguild.data.Constants.INVENTORY_TITLE_OFFSET;
 import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS;
 import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS;
@@ -55,8 +55,8 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
 
         inventory.onOpen(playerInventory.player);
 
-        int xOffset = 1 + INVENTORY_BORDER_PIXELS;
-        int yOffset = 1 + INVENTORY_BORDER_PIXELS + INVENTORY_TITLE_OFFSET;
+        int xOffset = 1 + INVENTORY_SLOT_OFFSET;
+        int yOffset = 1 + INVENTORY_SLOT_OFFSET + INVENTORY_TITLE_OFFSET;
 
         for (int row = 0; row < this.rows; row++) {
             for (int column = 0; column < this.columns; column++) {
