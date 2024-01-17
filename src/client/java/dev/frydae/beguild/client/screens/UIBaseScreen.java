@@ -105,12 +105,12 @@ public abstract class UIBaseScreen<T extends ScreenHandler> extends HandledScree
         // endregion
 
         // region Draw Filler
-//        fillerPiece.withInitial(context, x, y)
-//                .xOffset(leftPiece.getWidth())
-//                .yOffset(topPiece.getHeight())
-//                .setWidth(backgroundWidth - leftPiece.getWidth() - rightPiece.getWidth())
-//                .setHeight(backgroundHeight - topPiece.getHeight() - bottomPiece.getHeight())
-//                .drawTexture();
+        fillerPiece.withInitial(context, x, y)
+                .xOffset(leftPiece.getWidth())
+                .yOffset(topPiece.getHeight())
+                .setWidth(backgroundWidth - leftPiece.getWidth() - rightPiece.getWidth())
+                .setHeight(backgroundHeight - topPiece.getHeight() - bottomPiece.getHeight())
+                .drawTexture();
         // endregion
     }
 }
