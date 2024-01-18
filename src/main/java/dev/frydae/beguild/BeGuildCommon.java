@@ -16,8 +16,6 @@ import lombok.Getter;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
-import xyz.nucleoid.server.translations.api.language.ServerLanguageDefinition;
-import xyz.nucleoid.server.translations.impl.ServerTranslations;
 
 import java.util.List;
 import java.util.Map;
@@ -87,9 +85,6 @@ public class BeGuildCommon extends BeGuildMod {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server1) -> {
             UserManager.addOrUpdatePlayer(handler.getPlayer());
         });
-
-        ServerLanguageDefinition language = ServerTranslations.INSTANCE.getLanguageDefinition("en_us");
-        ServerTranslations.INSTANCE.setSystemLanguage(language);
 
         taskChainFactory = FabricTaskChainFactory.create(server);
     }

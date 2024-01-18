@@ -27,8 +27,6 @@ dependencies {
     include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
     include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
     include(api(group = "com.mysql", name = "mysql-connector-j", version = "8.2.0"))
-
-    modImplementation("xyz.nucleoid:server-translations-api:2.2.0+1.20.3-rc1")?.let { include(it) }
 }
 
 loom {
