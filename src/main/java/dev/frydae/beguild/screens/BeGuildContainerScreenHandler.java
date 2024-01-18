@@ -11,6 +11,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import static dev.frydae.beguild.data.Constants.INVENTORY_SLOT_OFFSET;
 import static dev.frydae.beguild.data.Constants.INVENTORY_TITLE_OFFSET;
@@ -30,10 +31,6 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
     private final int rows;
     private final int columns;
     private final PacketByteBuf buf;
-
-    public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, int rows, int columns) {
-        this(type, syncId, playerInventory, new SimpleInventory(columns * rows), rows, columns, PacketByteBufs.empty());
-    }
 
     public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, int rows, int columns, PacketByteBuf buf) {
         this(type, syncId, playerInventory, new SimpleInventory(columns * rows), rows, columns, buf);
@@ -55,44 +52,63 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
 
         inventory.onOpen(playerInventory.player);
 
-        int xOffset = 1 + INVENTORY_SLOT_OFFSET;
-        int yOffset = 1 + INVENTORY_SLOT_OFFSET + INVENTORY_TITLE_OFFSET;
+        MutableInt xOffset = new MutableInt(0);
+        MutableInt yOffset = new MutableInt(0);
+
+        drawContainerSlots(inventory, columns, xOffset, yOffset);
+        drawInventorySlots(playerInventory, xOffset, yOffset);
+        drawHotbarSlots(playerInventory, xOffset, yOffset);
+    }
+
+    private void drawContainerSlots(Inventory inventory, int columns, MutableInt xOffset, MutableInt yOffset) {
+        xOffset.add(1 + INVENTORY_SLOT_OFFSET);
+        yOffset.add(INVENTORY_SLOT_OFFSET + INVENTORY_TITLE_OFFSET);
 
         for (int row = 0; row < this.rows; row++) {
             for (int column = 0; column < this.columns; column++) {
+                int lesserXOffset = Math.max(PLAYER_INVENTORY_COLUMNS - columns, 0) * PLAYER_INVENTORY_SLOT_OFFSET;
+
                 int index = column + (row * columns);
-                int x = xOffset + (column * SLOT_PIXEL_SIZE);
-                int y = yOffset + (row * SLOT_PIXEL_SIZE);
+                int x = lesserXOffset + xOffset.intValue() + (column * SLOT_PIXEL_SIZE);
+
+                int y = yOffset.intValue() + (row * SLOT_PIXEL_SIZE);
 
                 addSlot(new Slot(inventory, index, x, y));
             }
         }
+    }
 
-        xOffset += (columns - PLAYER_INVENTORY_COLUMNS) * (SLOT_PIXEL_SIZE / 2);
-        yOffset += (rows * SLOT_PIXEL_SIZE) + PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS;
+    private void drawInventorySlots(PlayerInventory playerInventory, MutableInt xOffset, MutableInt yOffset) {
+        xOffset.add(Math.max(columns - PLAYER_INVENTORY_COLUMNS, 0) * (SLOT_PIXEL_SIZE / 2));
+        yOffset.add((rows * SLOT_PIXEL_SIZE) + PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS);
 
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < PLAYER_INVENTORY_COLUMNS; column++) {
                 int index = column + (row * PLAYER_INVENTORY_COLUMNS) + PLAYER_INVENTORY_SLOT_OFFSET;
-                int x = xOffset + (column * SLOT_PIXEL_SIZE);
-                int y = yOffset + (row * SLOT_PIXEL_SIZE);
+                int x = xOffset.intValue() + (column * SLOT_PIXEL_SIZE);
+                int y = yOffset.intValue() + (row * SLOT_PIXEL_SIZE);
 
                 addSlot(new Slot(playerInventory, index, x, y));
             }
         }
+    }
 
-        yOffset += (3 * SLOT_PIXEL_SIZE) + PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS;
+    private void drawHotbarSlots(PlayerInventory playerInventory, MutableInt xOffset, MutableInt yOffset) {
+        yOffset.add((3 * SLOT_PIXEL_SIZE) + PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS);
 
         for (int slot = 0; slot < 9; slot++) {
-            int x = xOffset + (slot * SLOT_PIXEL_SIZE);
-            int y = yOffset;
+            int x = xOffset.intValue() + (slot * SLOT_PIXEL_SIZE);
+            int y = yOffset.intValue();
 
             addSlot(new Slot(playerInventory, slot, x, y));
         }
     }
 
-    public static BeGuildContainerScreenHandler create(int rows, int columns, int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        return new BeGuildContainerScreenHandler(BeGuildScreenHandlerType.get(rows, columns), syncId, playerInventory, rows, columns, buf);
+    public static BeGuildContainerScreenHandler create(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
+        int rows = buf.readInt();
+        int columns = buf.readInt();
+
+        return new BeGuildContainerScreenHandler(BeGuildScreenHandlerType.BEGUILD_SCREEN_HANDLER, syncId, playerInventory, rows, columns, buf);
     }
 
     /**

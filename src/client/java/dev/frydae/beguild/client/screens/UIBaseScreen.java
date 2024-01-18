@@ -29,7 +29,7 @@ public abstract class UIBaseScreen<T extends ScreenHandler> extends HandledScree
     }
 
     private void setupPieces() {
-        Spritesheet spritesheet = new Spritesheet(loadUIPiece("container"), 48, 48);
+        Spritesheet spritesheet = new Spritesheet(loadContainerPiece("container"), 48, 48);
 
         topLeftPiece = spritesheet.getPiece(16, 16, 0, 0);
         topPiece = spritesheet.getPiece(16, 16, 16, 0);
@@ -52,10 +52,8 @@ public abstract class UIBaseScreen<T extends ScreenHandler> extends HandledScree
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }
 
-    protected Identifier loadUIPiece(String piece) {
-        String colorMode = BeGuildRendering.isDarkMode() ? "dark" : "light";
-
-        return new Identifier("beguild", "textures/gui/container/" + colorMode + "_" + piece + ".png");
+    protected Identifier loadContainerPiece(String piece) {
+        return BeGuildRendering.loadUIPiece("container", piece);
     }
 
     @Override

@@ -6,16 +6,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
-
-import static dev.frydae.beguild.data.Constants.INVENTORY_SLOT_OFFSET;
-import static dev.frydae.beguild.data.Constants.INVENTORY_TITLE_OFFSET;
-import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_COLUMNS;
-import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS;
-import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS;
-import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_SLOT_OFFSET;
-import static dev.frydae.beguild.data.Constants.PLAYER_INVENTORY_TITLE_OFFSET;
 
 @Environment(EnvType.CLIENT)
 public final class BeGuildContainerScreen extends UIBaseScreen<BeGuildContainerScreenHandler> {
@@ -24,26 +17,16 @@ public final class BeGuildContainerScreen extends UIBaseScreen<BeGuildContainerS
     public BeGuildContainerScreen(BeGuildContainerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
 
-        int rows = handler.getRows();
-        int columns = handler.getColumns();
-
-        this.backgroundWidth = INVENTORY_SLOT_OFFSET + (columns * slotPiece.getTextureWidth()) + INVENTORY_SLOT_OFFSET;
-        this.backgroundHeight = INVENTORY_SLOT_OFFSET +
-                INVENTORY_TITLE_OFFSET +
-                (rows * slotPiece.getTextureHeight()) +
-                PLAYER_INVENTORY_CONTAINER_SEPARATOR_PIXELS +
-                (3 * slotPiece.getTextureHeight()) +
-                PLAYER_INVENTORY_HOTBAR_SEPARATOR_PIXELS +
-                slotPiece.getTextureHeight() +
-                INVENTORY_SLOT_OFFSET;
-
-        this.playerInventoryTitleY = INVENTORY_SLOT_OFFSET + INVENTORY_TITLE_OFFSET + (rows * slotPiece.getTextureHeight()) + PLAYER_INVENTORY_TITLE_OFFSET;
-        this.playerInventoryTitleX = INVENTORY_SLOT_OFFSET + ((columns - PLAYER_INVENTORY_COLUMNS) * PLAYER_INVENTORY_SLOT_OFFSET);
+        PacketByteBuf buf = handler.getBuf();
+        this.backgroundWidth = buf.readInt();
+        this.backgroundHeight = buf.readInt();
+        this.playerInventoryTitleY = buf.readInt();
+        this.playerInventoryTitleX = buf.readInt();
     }
 
     @Override
     protected void loadUIParts() {
-        slotPiece = new ScreenTexturePiece(loadUIPiece("slot"), 18, 18);
+        slotPiece = new ScreenTexturePiece(loadContainerPiece("slot"), 18, 18);
     }
 
     @Override

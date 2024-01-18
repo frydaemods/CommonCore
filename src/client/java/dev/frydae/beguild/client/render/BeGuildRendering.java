@@ -22,6 +22,12 @@ public final class BeGuildRendering {
         return true;
     }
 
+    public static Identifier loadUIPiece(String path, String piece) {
+        String colorMode = BeGuildRendering.isDarkMode() ? "dark" : "light";
+
+        return new Identifier("beguild", "textures/gui/" + path + "/" + colorMode + "_" + piece + ".png");
+    }
+
     private static boolean verifySpriteExists(Identifier id) {
         if (!SPRITE_EXISTENCE_CACHE.containsKey(id)) {
             Sprite sprite = MinecraftClient.getInstance().getGuiAtlasManager().getSprite(id);
