@@ -53,11 +53,18 @@ public final class BeGuildRendering {
     }
 
     public static Identifier processUITexture(Identifier original) {
-        if (isDarkMode()) {
-            Identifier darkTexture = new Identifier("beguild", alterDarkModePath(original.getPath()));
+        return new Identifier(processUITexture(original.getNamespace() + ":" + original.getPath()));
+    }
 
-            if (verifyTextureExists(darkTexture)) {
-                return darkTexture;
+    public static String processUITexture(String original) {
+        if (isDarkMode()) {
+            String darkIdentifier = "beguild:" + alterDarkModePath(original);
+
+            // replace old vanilla identifier namespace
+            darkIdentifier = darkIdentifier.replace("minecraft:", "");
+
+            if (verifyTextureExists(new Identifier(darkIdentifier))) {
+                return darkIdentifier;
             }
         }
 

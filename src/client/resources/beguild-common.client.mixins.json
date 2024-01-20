@@ -10,6 +10,7 @@
     "HandledScreenMixin"
   ],
   "client": [
-    "AnvilScreenMixin"
+    "AnvilScreenMixin",
+    "SmithingScreenMixin"
   ]
 }
