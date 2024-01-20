@@ -1,4 +1,4 @@
-package dev.frydae.beguild.client.mixins;
+package dev.frydae.beguild.client.mixins.gui.screen.ingame;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.frydae.beguild.client.render.BeGuildRendering;

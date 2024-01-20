@@ -1,4 +1,4 @@
-package dev.frydae.beguild.client.mixins;
+package dev.frydae.beguild.client.mixins.gui.screen.ingame;
 
 import dev.frydae.beguild.client.render.BeGuildRendering;
 import net.minecraft.client.gui.screen.ingame.SmithingScreen;

@@ -6,11 +6,10 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": [
-    "HandledScreenMixin"
-  ],
+  "mixins": [],
   "client": [
-    "AnvilScreenMixin",
-    "SmithingScreenMixin"
+    "gui.screen.ingame.AnvilScreenMixin",
+    "gui.screen.ingame.HandledScreenMixin",
+    "gui.screen.ingame.SmithingScreenMixin"
   ]
 }
