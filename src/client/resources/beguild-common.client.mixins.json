@@ -9,6 +9,8 @@
   "mixins": [],
   "client": [
     "gui.screen.ingame.AnvilScreenMixin",
+    "gui.screen.ingame.BeaconScreenMixin",
+    "gui.screen.ingame.BeaconScreenMixin$BaseButtonWidgetMixin",
     "gui.screen.ingame.HandledScreenMixin",
     "gui.screen.ingame.SmithingScreenMixin",
     "texture.SpriteAtlasHolderAccessor",

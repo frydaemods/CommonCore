@@ -1,2 +1,9 @@
 accessWidener v2 named
 transitive-accessible method net/minecraft/screen/ScreenHandlerType register (Ljava/lang/String;Lnet/minecraft/screen/ScreenHandlerType$Factory;)Lnet/minecraft/screen/ScreenHandlerType;
+
+accessible class net/minecraft/client/gui/screen/ingame/BeaconScreen$DoneButtonWidget
+accessible class net/minecraft/client/gui/screen/ingame/BeaconScreen$CancelButtonWidget
+accessible class net/minecraft/client/gui/screen/ingame/BeaconScreen$EffectButtonWidget
+accessible class net/minecraft/client/gui/screen/ingame/BeaconScreen$LevelTwoEffectButtonWidget
+accessible class net/minecraft/client/gui/screen/ingame/BeaconScreen$IconButtonWidget
+accessible class net/minecraft/client/gui/screen/ingame/BeaconScreen$BaseButtonWidget
