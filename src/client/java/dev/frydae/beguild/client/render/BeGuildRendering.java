@@ -1,11 +1,12 @@
 package dev.frydae.beguild.client.render;
 
 import com.google.common.collect.Maps;
+import dev.frydae.beguild.client.mixins.texture.SpriteAtlasHolderAccessor;
+import dev.frydae.beguild.client.mixins.texture.SpriteAtlasTextureAccessor;
+import dev.frydae.beguild.client.mixins.texture.TextureManagerAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.AbstractTexture;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.util.Identifier;
 
 import java.util.Map;
@@ -30,9 +31,9 @@ public final class BeGuildRendering {
 
     private static boolean verifySpriteExists(Identifier id) {
         if (!SPRITE_EXISTENCE_CACHE.containsKey(id)) {
-            Sprite sprite = MinecraftClient.getInstance().getGuiAtlasManager().getSprite(id);
+            boolean found = ((SpriteAtlasTextureAccessor) ((SpriteAtlasHolderAccessor) MinecraftClient.getInstance().getGuiAtlasManager()).getAtlas()).getSprites().containsKey(id);
 
-            SPRITE_EXISTENCE_CACHE.put(id, sprite != null);
+            SPRITE_EXISTENCE_CACHE.put(id, found);
         }
 
         return SPRITE_EXISTENCE_CACHE.get(id);
@@ -40,9 +41,9 @@ public final class BeGuildRendering {
 
     private static boolean verifyTextureExists(Identifier id) {
         if (!TEXTURE_EXISTENCE_CACHE.containsKey(id)) {
-            AbstractTexture texture = MinecraftClient.getInstance().getTextureManager().getTexture(id);
+            boolean found = ((TextureManagerAccessor) MinecraftClient.getInstance().getTextureManager()).getTextures().containsKey(id);
 
-            TEXTURE_EXISTENCE_CACHE.put(id, texture != null);
+            TEXTURE_EXISTENCE_CACHE.put(id, found);
         }
 
         return TEXTURE_EXISTENCE_CACHE.get(id);
@@ -64,6 +65,7 @@ public final class BeGuildRendering {
             darkIdentifier = darkIdentifier.replace("minecraft:", "");
 
             if (verifyTextureExists(new Identifier(darkIdentifier))) {
+                System.out.println("fish");
                 return darkIdentifier;
             }
         }

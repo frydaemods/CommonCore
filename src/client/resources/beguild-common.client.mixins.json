@@ -10,6 +10,9 @@
   "client": [
     "gui.screen.ingame.AnvilScreenMixin",
     "gui.screen.ingame.HandledScreenMixin",
-    "gui.screen.ingame.SmithingScreenMixin"
+    "gui.screen.ingame.SmithingScreenMixin",
+    "texture.SpriteAtlasHolderAccessor",
+    "texture.SpriteAtlasTextureAccessor",
+    "texture.TextureManagerAccessor"
   ]
 }
