@@ -12,6 +12,7 @@
     "gui.screen.ingame.BeaconScreenMixin",
     "gui.screen.ingame.BeaconScreenMixin$BaseButtonWidgetMixin",
     "gui.screen.ingame.BlastFurnaceMixin",
+    "gui.screen.ingame.FurnaceScreenMixin",
     "gui.screen.ingame.HandledScreenMixin",
     "gui.screen.ingame.SmithingScreenMixin",
     "texture.SpriteAtlasHolderAccessor",
