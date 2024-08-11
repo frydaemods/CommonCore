@@ -1,8 +1,8 @@
 plugins {
     java
-    id("io.freefair.lombok") version "8.3"
+    id("io.freefair.lombok") version "8.7.1"
     id("java-library")
-    id("fabric-loom") version "1.4-SNAPSHOT"
+    id("fabric-loom") version "1.7-SNAPSHOT"
 }
 
 group = property("maven_group")!!
@@ -19,6 +19,9 @@ dependencies {
 
     modImplementation("dev.frydae:fcs-fabric:${version}")?.let { include(it) }
     include(api(group = "co.aikar", name = "taskchain-core", version = "3.7.2"))
+
+    include(api(group = "org.javassist", name = "javassist", version = "3.28.0-GA"))
+    include(api(group = "org.reflections", name = "reflections", version = "0.10.2"))
 
     modImplementation("com.sk89q.worldedit:worldedit-fabric-mc1.20.4:7.2.18-SNAPSHOT")
     modImplementation("xyz.nucleoid:fantasy:0.5.0+1.20.4")?.let { include(it) }
