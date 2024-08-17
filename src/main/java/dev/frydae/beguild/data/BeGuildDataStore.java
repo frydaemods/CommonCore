@@ -10,6 +10,11 @@ import org.jetbrains.annotations.NotNull;
 public abstract class BeGuildDataStore extends PersistentState {
     public static <T extends PersistentState> T get(Type<T> type, @NotNull String id) {
         MinecraftServer server = BeGuildCommon.getServer();
+
+        if (server.getWorld(World.OVERWORLD) == null) {
+            return null;
+        }
+
         PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
 
         T state = persistentStateManager.getOrCreate(type, id);
