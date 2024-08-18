@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 public class SmithingScreenMixin {
     @ModifyArg(
             method = "<init>",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Identifier;<init>(Ljava/lang/String;)V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Identifier;ofVanilla(Ljava/lang/String;)Lnet/minecraft/util/Identifier;")
     )
     private static String applyDarkTexture(String original) {
         return BeGuildRendering.processUITexture(original);

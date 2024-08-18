@@ -2,6 +2,7 @@ package dev.frydae.beguild.client.screens;
 
 import dev.frydae.beguild.client.render.ScreenTexturePiece;
 import dev.frydae.beguild.screens.BeGuildContainerScreenHandler;
+import dev.frydae.beguild.screens.BeGuildScreenHandlerPayload;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -17,11 +18,12 @@ public final class BeGuildContainerScreen extends UIBaseScreen<BeGuildContainerS
     public BeGuildContainerScreen(BeGuildContainerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
 
-        PacketByteBuf buf = handler.getBuf();
-        this.backgroundWidth = buf.readInt();
-        this.backgroundHeight = buf.readInt();
-        this.playerInventoryTitleY = buf.readInt();
-        this.playerInventoryTitleX = buf.readInt();
+        BeGuildScreenHandlerPayload payload = handler.getPayload();
+
+        this.backgroundWidth = payload.width();
+        this.backgroundHeight = payload.height();
+        this.playerInventoryTitleY = payload.playerInventoryTitleY();
+        this.playerInventoryTitleX = payload.playerInventoryTitleX();
     }
 
     @Override

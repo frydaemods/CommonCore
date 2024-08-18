@@ -18,10 +18,13 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
     modImplementation("dev.frydae:fcs-fabric:${version}")?.let { include(it) }
-    include(api(group = "co.aikar", name = "taskchain-core", version = "3.7.2"))
 
+    include(api(group = "co.aikar", name = "taskchain-core", version = "3.7.2"))
+    include(api(group = "co.aikar", name = "idb-core", version = "1.0.0-SNAPSHOT"))
     include(api(group = "org.javassist", name = "javassist", version = "3.28.0-GA"))
     include(api(group = "org.reflections", name = "reflections", version = "0.10.2"))
+    include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
+    include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.27"))
 
     modImplementation("com.sk89q.worldedit:worldedit-fabric-mc1.20.4:7.2.18-SNAPSHOT")
     modImplementation("xyz.nucleoid:fantasy:0.5.0+1.20.4")?.let { include(it) }

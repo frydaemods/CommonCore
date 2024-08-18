@@ -30,17 +30,13 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final int rows;
     private final int columns;
-    private final PacketByteBuf buf;
+    private final BeGuildScreenHandlerPayload payload;
 
-    public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, int rows, int columns, PacketByteBuf buf) {
-        this(type, syncId, playerInventory, new SimpleInventory(columns * rows), rows, columns, buf);
+    public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, int rows, int columns, BeGuildScreenHandlerPayload payload) {
+        this(type, syncId, playerInventory, new SimpleInventory(columns * rows), rows, columns, payload);
     }
 
-    public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, int rows, int columns) {
-        this(type, syncId, playerInventory, inventory, rows, columns, PacketByteBufs.empty());
-    }
-
-    public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, int rows, int columns, PacketByteBuf buf) {
+    public BeGuildContainerScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, Inventory inventory, int rows, int columns, BeGuildScreenHandlerPayload payload) {
         super(type, syncId);
 
         checkSize(inventory, rows * columns);
@@ -48,7 +44,7 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
         this.inventory = inventory;
         this.rows = rows;
         this.columns = columns;
-        this.buf = buf;
+        this.payload = payload;
 
         inventory.onOpen(playerInventory.player);
 
@@ -104,11 +100,8 @@ public class BeGuildContainerScreenHandler extends ScreenHandler {
         }
     }
 
-    public static BeGuildContainerScreenHandler create(int syncId, PlayerInventory playerInventory, PacketByteBuf buf) {
-        int rows = buf.readInt();
-        int columns = buf.readInt();
-
-        return new BeGuildContainerScreenHandler(BeGuildScreenHandlerType.BEGUILD_SCREEN_HANDLER, syncId, playerInventory, rows, columns, buf);
+    public static BeGuildContainerScreenHandler create(int syncId, PlayerInventory playerInventory, BeGuildScreenHandlerPayload payload) {
+        return new BeGuildContainerScreenHandler(BeGuildScreenHandlerType.BEGUILD_SCREEN_HANDLER, syncId, playerInventory, payload.rows(), payload.columns(), payload);
     }
 
     /**
