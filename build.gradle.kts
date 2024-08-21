@@ -8,9 +8,6 @@ plugins {
 group = property("maven_group")!!
 version = "${property("fabric_version")!!}-SNAPSHOT"
 
-apply(from = uri("https://files.frydae.dev/gradle/common.gradle"))
-apply(from = uri("https://files.frydae.dev/gradle/publishing.gradle"))
-
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     mappings("net.fabricmc:yarn:${property("yarn_mappings")}:v2")
@@ -26,10 +23,24 @@ dependencies {
     include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
     include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.27"))
 
-    modImplementation("com.sk89q.worldedit:worldedit-fabric-mc1.20.4:7.2.18-SNAPSHOT")
-    modImplementation("xyz.nucleoid:fantasy:0.5.0+1.20.4")?.let { include(it) }
-
     include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
+}
+
+repositories {
+    maven { url = uri("https://maven.isxander.dev/releases") }
+    maven { url = uri("https://maven.isxander.dev/snapshots") }
+    maven { url = uri("https://maven.nucleoid.xyz/") }
+    maven { url = uri("https://maven.enginehub.org/repo") }
+    maven { url = uri("https://maven.frydae.dev/releases/") }
+    maven { url = uri("https://maven.frydae.dev/snapshots/") }
+    maven { url = uri("https://ci.emc.gs/nexus/content/groups/aikar/") }
+}
+
+java {
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 loom {

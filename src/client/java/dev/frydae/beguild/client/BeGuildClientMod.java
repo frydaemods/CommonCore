@@ -13,6 +13,8 @@ public class BeGuildClientMod implements ClientModInitializer {
     public void onInitializeClient() {
         HandledScreens.register(BeGuildScreenHandlerType.BEGUILD_SCREEN_HANDLER, BeGuildContainerScreen::new);
 
+        BeGuildRegistry.dummy();
+
         System.out.println("I turned myself into a client mod Morty");
         System.out.println("I'M CLIENT MOD RICK!!!!");
     }
