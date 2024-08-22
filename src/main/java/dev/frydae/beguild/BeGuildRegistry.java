@@ -1,6 +1,6 @@
-package dev.frydae.beguild.client;
+package dev.frydae.beguild;
 
-import dev.frydae.beguild.client.types.CustomItemMeta;
+import dev.frydae.beguild.types.CustomItemMeta;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

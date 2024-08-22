@@ -1,4 +1,4 @@
-package dev.frydae.beguild.client.types;
+package dev.frydae.beguild.types;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
