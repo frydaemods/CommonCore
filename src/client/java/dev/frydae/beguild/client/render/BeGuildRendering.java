@@ -26,7 +26,7 @@ public final class BeGuildRendering {
     public static Identifier loadUIPiece(String path, String piece) {
         String colorMode = BeGuildRendering.isDarkMode() ? "dark" : "light";
 
-        return new Identifier("beguild", "textures/gui/" + path + "/" + colorMode + "_" + piece + ".png");
+        return Identifier.of("beguild", "textures/gui/" + path + "/" + colorMode + "_" + piece + ".png");
     }
 
     private static boolean verifySpriteExists(Identifier id) {
@@ -54,7 +54,7 @@ public final class BeGuildRendering {
     }
 
     public static Identifier processUITexture(Identifier original) {
-        return new Identifier(processUITexture(original.getNamespace() + ":" + original.getPath()));
+        return Identifier.of(processUITexture(original.getNamespace() + ":" + original.getPath()));
     }
 
     public static String processUITexture(String original) {
@@ -64,8 +64,7 @@ public final class BeGuildRendering {
             // replace old vanilla identifier namespace
             darkIdentifier = darkIdentifier.replace("minecraft:", "");
 
-            if (verifyTextureExists(new Identifier(darkIdentifier))) {
-                System.out.println("fish");
+            if (verifyTextureExists(Identifier.of(darkIdentifier))) {
                 return darkIdentifier;
             }
         }
@@ -75,7 +74,7 @@ public final class BeGuildRendering {
 
     public static Identifier processSpriteTexture(Identifier original) {
         if (isDarkMode()) {
-            Identifier darkSprite = new Identifier(alterDarkModePath(original.getPath()));
+            Identifier darkSprite = Identifier.of(alterDarkModePath(original.getPath()));
 
             if (verifySpriteExists(darkSprite)) {
                 return darkSprite;
