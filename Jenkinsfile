@@ -22,5 +22,13 @@ pipeline {
                 sh 'gradle test'
             }
         }
+
+        stage('Deploy to Maven') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'frydae-maven-key', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'gradle publish -PfrydaeRepositoryUsername=$USERNAME -PfrydaeRepositoryPassword=$PASSWORD'
+                }
+            }
+        }
     }
 }
