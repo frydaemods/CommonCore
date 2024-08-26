@@ -23,7 +23,7 @@ dependencies {
     include(api(group = "org.javassist", name = "javassist", version = "3.28.0-GA"))
     include(api(group = "org.reflections", name = "reflections", version = "0.10.2"))
     include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
-    include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.27"))
+    include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.33"))
 
     include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
 }
