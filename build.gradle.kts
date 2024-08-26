@@ -25,7 +25,7 @@ dependencies {
     include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
     include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.27"))
 
-    include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
+    include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.16.0"))
 }
 
 repositories {
