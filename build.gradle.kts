@@ -1,6 +1,6 @@
 plugins {
     java
-    id("io.freefair.lombok") version "8.7.1"
+    id("io.freefair.lombok") version "8.10"
     id("java-library")
     id("fabric-loom") version "1.7-SNAPSHOT"
 }
@@ -17,15 +17,6 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_version")}")
 
     modImplementation("dev.frydae:fcs-fabric:${version}")?.let { include(it) }
-
-    include(api(group = "co.aikar", name = "taskchain-core", version = "3.7.2"))
-    include(api(group = "co.aikar", name = "idb-core", version = "1.0.0-SNAPSHOT"))
-    include(api(group = "org.javassist", name = "javassist", version = "3.28.0-GA"))
-    include(api(group = "org.reflections", name = "reflections", version = "0.10.2"))
-    include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
-    include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.27"))
-
-    include(implementation(group = "org.apache.commons", name = "commons-lang3", version = "3.14.0"))
 }
 
 repositories {
