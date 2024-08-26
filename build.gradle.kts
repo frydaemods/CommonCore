@@ -20,7 +20,7 @@ dependencies {
 
     include(api(group = "co.aikar", name = "taskchain-core", version = "3.7.2"))
     include(api(group = "co.aikar", name = "idb-core", version = "1.0.0-SNAPSHOT"))
-    include(api(group = "org.javassist", name = "javassist", version = "3.28.0-GA"))
+    include(api(group = "org.javassist", name = "javassist", version = "3.30.2-GA"))
     include(api(group = "org.reflections", name = "reflections", version = "0.10.2"))
     include(api(group = "com.zaxxer", name = "HikariCP", version = "5.1.0"))
     include(api(group = "mysql", name = "mysql-connector-java", version = "8.0.27"))
